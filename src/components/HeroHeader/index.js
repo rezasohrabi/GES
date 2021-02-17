@@ -1,11 +1,14 @@
-import { Grid, Button, makeStyles } from '@material-ui/core'
 import React from 'react'
-import ManImage from './../../assets/man.jpg'
-import WomanImage from './../../assets/woman.jpeg'
+import { Grid, Button, makeStyles } from '@material-ui/core';
+import ManImage from './../../assets/man.jpg';
+import WomanImage from './../../assets/woman.jpeg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '450px',
+        height: '400px',
+        [theme.breakpoints.up('xs')]: {
+            height: '600px',
+        },
     },
     manImage: {
         backgroundImage: `URL(${ManImage})`,
@@ -31,5 +34,6 @@ const HeroHeader = (props) => {
             </Grid>
         </Grid>
     )
-}
+};
+
 export default HeroHeader

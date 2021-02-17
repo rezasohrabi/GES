@@ -1,6 +1,7 @@
 import React from 'react';
-import { AppBar, Button, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -9,8 +10,7 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         flexGrow: 1,
     },
-
-}))
+}));
 
 const Header = () => {
     const classes = useStyles();
@@ -20,12 +20,17 @@ const Header = () => {
                 <IconButton edge='start' className={classes.menuButton} color='inherit' size='medium' aria-label='menu'>
                     <MenuIcon />
                 </IconButton>
-                <Typography variant='h6' className={classes.logo}>
-                    GESS
-                </Typography>
-                <Button edge='end' color='inherit'>Login</Button>
+                <Link component={RouterLink} to='/' color='inherit'  className={classes.logo}>
+                    <Typography variant='h6'>
+                            Geasy Shop
+                    </Typography>
+                </Link>
+                <Button edge='end' component={RouterLink} to='/register' color='inherit'>
+                    Register
+                </Button>
             </Toolbar>
         </AppBar>
     )
-}
-export default Header
+};
+
+export default Header;
