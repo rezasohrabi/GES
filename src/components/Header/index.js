@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link as RouterLink} from 'react-router-dom';
+import { auth } from '../../firebase/utils';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -12,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = () => {
+const Header = props => {
+    const { currentUser } = props;
     const classes = useStyles();
     return (
         <AppBar position='static' className={classes.root}>
@@ -25,9 +27,21 @@ const Header = () => {
                             Geasy Shop
                     </Typography>
                 </Link>
-                <Button edge='end' component={RouterLink} to='/register' color='inherit'>
-                    Register
-                </Button>
+                {!currentUser ? (
+                    <>
+                        <Button edge='end' component={RouterLink} to='/register' color='inherit'>
+                            Register
+                        </Button>
+                        <Button edge='end' component={RouterLink} to='/login' color='inherit'>
+                            Sign in
+                        </Button>
+                    </>
+                ) : (
+                    <Button edge='end' onClick={ () => auth.signOut() } color='inherit'>
+                        Logout
+                    </Button>
+                )}
+                
             </Toolbar>
         </AppBar>
     )
