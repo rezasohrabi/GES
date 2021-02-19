@@ -1,11 +1,8 @@
 import React from 'react';
+import Signup from '../../components/Signup';
 
 const Registration = props => {
-    return (
-        <div>
-            registeration
-        </div>
-    )
+    return <Signup />;
 };
 
 export default Registration;
