@@ -3,6 +3,7 @@ import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography } fro
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link as RouterLink} from 'react-router-dom';
 import { auth } from '../../firebase/utils';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -50,4 +51,8 @@ Header.defaultProps = {
     currentUser: null,
 }
 
-export default Header;
+const mapStateToProps = ({user}) => ({
+    currentUser: user.currentUser,
+})
+
+export default connect(mapStateToProps, null)(Header);

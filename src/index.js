@@ -5,13 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Provider } from 'react-redux'
+import store from './redux/createStore'
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <Router>
-      <App />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
