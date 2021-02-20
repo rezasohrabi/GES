@@ -46,5 +46,8 @@ const Header = props => {
         </AppBar>
     )
 };
+Header.defaultProps = {
+    currentUser: null,
+}
 
 export default Header;

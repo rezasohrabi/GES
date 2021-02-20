@@ -60,8 +60,8 @@ class Signup extends Component {
         return (
             <FormPanel title='Sign Up' icon={<PersonAdd />}>
                 {errors.length > 0 && (
-                    errors.map(err => {
-                        return <Typography component='div' color='error'>{err}</Typography>;
+                    errors.map((err, index) => {
+                        return <Typography key={index} component='div' color='error'>{err}</Typography>;
                     }))
                 };
                 <form onSubmit={this.handleSubmit}>

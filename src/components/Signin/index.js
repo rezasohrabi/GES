@@ -69,7 +69,7 @@ const Signin = props => {
                 required
                 fullWidth
                 />
-                <Link component={RouterLink} to='/' variant='body2'>
+                <Link component={RouterLink} to='/reset-password' variant='body2'>
                     Forget password?
                 </Link>
                 <Button 

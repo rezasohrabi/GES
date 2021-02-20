@@ -24,13 +24,17 @@ const FormPanel = props => {
     return (
         <Container component='main' maxWidth='xs'>
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    {icon}
-                </Avatar>
-                <Typography variant='h5'>
-                    {title}
-                </Typography>
-                { children }
+                {icon && (
+                    <Avatar className={classes.avatar}>
+                        {icon}
+                    </Avatar>
+                )}
+                {title && (
+                    <Typography variant='h5'>
+                        {title}
+                    </Typography>
+                )}
+                {children}
             </div>
         </Container>
     );
