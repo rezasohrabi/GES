@@ -38,9 +38,14 @@ const Header = props => {
                         </Button>
                     </>
                 ) : (
-                    <Button edge='end' onClick={ () => auth.signOut() } color='inherit'>
-                        Logout
-                    </Button>
+                    <>
+                        <Button edge='end' component={RouterLink} to='/dashboard' color='inherit'>
+                            My Dashboard
+                        </Button>
+                        <Button edge='end' onClick={ () => auth.signOut() } color='inherit'>
+                            Logout
+                        </Button>
+                    </>
                 )}
                 
             </Toolbar>

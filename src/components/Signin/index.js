@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link as RouterLink, withRouter } from 'react-router-dom'
 import { Box, Button, Divider, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import GoogleIcon from './../Icons/GoogleIcon'
@@ -26,8 +26,15 @@ const useStyles = makeStyles(theme => ({
 
 const Signin = props => {
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
+
+    const resetForm = () => {
+        setEmail('');
+        setPassword('');
+        setErrors([]);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,11 +42,12 @@ const Signin = props => {
         try {
 
             await auth.signInWithEmailAndPassword(email, password);
-            setEmail('');
-            setPassword('');
+            resetForm();
+            props.history.push('/');
 
         } catch(error) {
             console.error(error);
+            setErrors(['Error occured while log in'])
         }
     }
 
@@ -47,6 +55,16 @@ const Signin = props => {
 
     return (
        <FormPanel title='Sign in' icon={<LockOpenIcon />}>
+           {errors.length > 0 && (
+               errors.map((e, index) => {
+               return <Typography 
+                        component='div' 
+                        key={index} 
+                        color='error'>
+                        {e}
+                        </Typography>
+               })
+           )}
             <form onSubmit={handleSubmit}>
                 <TextField
                 name='email'
@@ -106,4 +124,4 @@ const Signin = props => {
     )
 };
 
-export default Signin;
+export default withRouter(Signin);
