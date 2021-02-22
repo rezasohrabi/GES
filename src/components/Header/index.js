@@ -3,7 +3,7 @@ import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography } fro
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link as RouterLink} from 'react-router-dom';
 import { auth } from '../../firebase/utils';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -14,8 +14,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const mapState = ({user}) => ({
+    currentUser: user.currentUser
+})
+
 const Header = props => {
-    const { currentUser } = props;
+    const { currentUser } = useSelector(mapState);
     const classes = useStyles();
     return (
         <AppBar position='static' className={classes.root}>
@@ -56,8 +60,4 @@ Header.defaultProps = {
     currentUser: null,
 }
 
-const mapStateToProps = ({user}) => ({
-    currentUser: user.currentUser,
-})
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

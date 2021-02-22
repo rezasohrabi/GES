@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, withRouter } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { Box, Button, Divider, Link, makeStyles, TextField, Typography } from '@material-ui/core';
-import LockOpenIcon from '@material-ui/icons/LockOpen'
-import GoogleIcon from './../Icons/GoogleIcon'
-import { auth, signInWithGoogle } from './../../firebase/utils';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import GoogleIcon from './../Icons/GoogleIcon';
 import FormPanel from '../FormPanel';
+import { resetAllForms, signInUser, signInWithGoogle } from '../../redux/User/user.actions';
 
 const useStyles = makeStyles(theme => ({
     submitButton: {
@@ -24,7 +25,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const mapState = ({user}) => ({
+    signInSuccess: user.signInSuccess,
+    signInErrors: user.signInErrors
+});
+
 const Signin = props => {
+    const { signInSuccess, signInErrors } = useSelector(mapState);
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,19 +44,28 @@ const Signin = props => {
         setErrors([]);
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-
-            await auth.signInWithEmailAndPassword(email, password);
+    useEffect(() => {
+        if(signInSuccess) {
             resetForm();
-            props.history.push('/');
-
-        } catch(error) {
-            console.error(error);
-            setErrors(['Error occured while log in'])
+            dispatch(resetAllForms());
+            props.history.push('/')
         }
+    },[signInSuccess]);
+
+    useEffect(() => {
+        if(Array.isArray(signInErrors) && signInErrors.length > 0) {
+            setErrors(signInErrors);
+        }
+    }, [signInErrors]);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(signInUser({email, password}));
+    }
+
+    const handleSignInWithGoogle = (e) => {
+        e.preventDefault();
+        dispatch(signInWithGoogle());
     }
 
     const classes = useStyles();
@@ -116,7 +133,7 @@ const Signin = props => {
                 variant='outlined'
                 color='secondary'
                 fullWidth
-                onClick={signInWithGoogle}
+                onClick={handleSignInWithGoogle}
                 >sign in with google
                 </Button>
             </form>

@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom'
 import { Button, TextField, Typography} from '@material-ui/core';
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import FormPanel from '../FormPanel';
-import { auth, handleUserProfile } from './../../firebase/utils'
+import { useSelector, useDispatch } from 'react-redux';
+import { resetAllForms, signUpUser } from '../../redux/User/user.actions';
 
+const mapState = ({user}) => ({
+    signUpSuccess: user.signUpSuccess,
+    signUpErrors: user.signUpErrors
+})
 
 const Signup = props => {
+    const { signUpSuccess, signUpErrors } = useSelector(mapState);
+    const dispatch = useDispatch();
+
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,28 +26,31 @@ const Signup = props => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setErrors('');
+        setErrors([]);
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        if(password !== confirmPassword){
-            setErrors({
-                errors:['Password doesn\'t match'],
-            });
-            return;
-        }
-
-        try {
-            const { user} = await auth.createUserWithEmailAndPassword(email, password);
-            await handleUserProfile(user, {displayName});
+    useEffect(() => {
+        if(signUpSuccess) {
             resetForm();
+            dispatch(resetAllForms())
             props.history.push('/')
-
-        } catch(error) {
-            console.error(error);
         }
+    }, [signUpSuccess]);
+
+    useEffect( () => {
+        if(Array.isArray(signUpErrors) && signUpErrors.length > 0) {
+            setErrors(signUpErrors);
+        }
+    }, [signUpErrors]);
+
+    const handleSubmit =  e => {
+        e.preventDefault();
+        dispatch(signUpUser({
+            displayName,
+            email,
+            password,
+            confirmPassword
+        }));
     }
 
     return (
