@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { auth, handleUserProfile } from './firebase/utils';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentUser } from './redux/User/user.actions'
+import { Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
 import WithAuth from './hoc/withAuth';
 // layouts
 import MainLayout from './layouts/MainLayout';
@@ -12,31 +10,13 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
-
-const mapState = ({user}) => ({
-  currentUser: user.currentUser
-})
+import { checkUserSession } from './redux/User/user.actions';
 
 const App = props => {
-  const { currentUser } = useSelector(mapState);
   const  dispatch = useDispatch();
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        userRef.onSnapshot(snapshot => {
-          dispatch(setCurrentUser({
-              id: snapshot.id,
-              ...snapshot.data()
-          }));
-        });
-      }
-      dispatch(setCurrentUser(userAuth));
-    });
-    return () => {
-      authListener();
-    };
+    dispatch(checkUserSession());
   }, []);
 
   return (
@@ -47,17 +27,17 @@ const App = props => {
               <Homepage />
             </MainLayout>
           )} />
-          <Route path='/register' render={() => currentUser? <Redirect to='/' /> : (
+          <Route path='/register' render={() => (
             <MainLayout>
               <Registration />
             </MainLayout>
           )} />
-          <Route path='/login' render={() => currentUser? <Redirect to='/' /> : (
+          <Route path='/login' render={() => (
             <MainLayout>
               <Login />
             </MainLayout>
           )} />
-          <Route path='/reset-password' render={() => currentUser? <Redirect to='/' /> : (
+          <Route path='/reset-password' render={() => (
             <MainLayout>
               <Recovery />
             </MainLayout>

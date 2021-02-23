@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Box, Button, Divider, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import GoogleIcon from './../Icons/GoogleIcon';
 import FormPanel from '../FormPanel';
-import { resetAllForms, signInUser, signInWithGoogle } from '../../redux/User/user.actions';
+import { emailSignInStart, signInWithGoogleStart } from '../../redux/User/user.actions';
 
 const useStyles = makeStyles(theme => ({
     submitButton: {
@@ -26,13 +26,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const mapState = ({user}) => ({
-    signInSuccess: user.signInSuccess,
-    signInErrors: user.signInErrors
+    currentUser: user.currentUser,
+    userError: user.userError
 });
 
 const Signin = props => {
-    const { signInSuccess, signInErrors } = useSelector(mapState);
+    const { currentUser, userError } = useSelector(mapState);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,27 +46,26 @@ const Signin = props => {
     }
 
     useEffect(() => {
-        if(signInSuccess) {
+        if(currentUser) {
             resetForm();
-            dispatch(resetAllForms());
-            props.history.push('/')
+            history.push('/')
         }
-    },[signInSuccess]);
+    },[currentUser]);
 
     useEffect(() => {
-        if(Array.isArray(signInErrors) && signInErrors.length > 0) {
-            setErrors(signInErrors);
+        if(Array.isArray(userError) && userError.length > 0) {
+            setErrors(userError);
         }
-    }, [signInErrors]);
+    }, [userError]);
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(signInUser({email, password}));
+        dispatch(emailSignInStart({email, password}));
     }
 
     const handleSignInWithGoogle = (e) => {
         e.preventDefault();
-        dispatch(signInWithGoogle());
+        dispatch(signInWithGoogleStart());
     }
 
     const classes = useStyles();
@@ -141,4 +141,4 @@ const Signin = props => {
     )
 };
 
-export default withRouter(Signin);
+export default Signin;

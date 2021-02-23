@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Button, TextField, Typography} from '@material-ui/core';
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import FormPanel from '../FormPanel';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetAllForms, signUpUser } from '../../redux/User/user.actions';
+import { signUpUserStart } from '../../redux/User/user.actions';
 
 const mapState = ({user}) => ({
-    signUpSuccess: user.signUpSuccess,
-    signUpErrors: user.signUpErrors
+    currentUser: user.currentUser,
+    userError: user.userError
 })
 
 const Signup = props => {
-    const { signUpSuccess, signUpErrors } = useSelector(mapState);
+    const { currentUser, userError } = useSelector(mapState);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
@@ -30,22 +31,21 @@ const Signup = props => {
     }
 
     useEffect(() => {
-        if(signUpSuccess) {
+        if(currentUser) {
             resetForm();
-            dispatch(resetAllForms())
-            props.history.push('/')
+            history.push('/')
         }
-    }, [signUpSuccess]);
+    }, [currentUser]);
 
     useEffect( () => {
-        if(Array.isArray(signUpErrors) && signUpErrors.length > 0) {
-            setErrors(signUpErrors);
+        if(Array.isArray(userError) && userError.length > 0) {
+            setErrors(userError);
         }
-    }, [signUpErrors]);
+    }, [userError]);
 
     const handleSubmit =  e => {
         e.preventDefault();
-        dispatch(signUpUser({
+        dispatch(signUpUserStart({
             displayName,
             email,
             password,
@@ -114,4 +114,4 @@ const Signup = props => {
     )
 };
 
-export default withRouter(Signup);
+export default Signup;
