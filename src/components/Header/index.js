@@ -32,7 +32,7 @@ const Header = props => {
     return (
         <AppBar position='static' className={classes.root}>
             <Toolbar>
-                <IconButton edge='start' className={classes.menuButton} color='inherit' size='medium' aria-label='menu'>
+                <IconButton className={classes.menuButton} color='inherit' size='medium' aria-label='menu'>
                     <MenuIcon />
                 </IconButton>
                 <Link component={RouterLink} to='/' color='inherit'  className={classes.logo}>
@@ -42,19 +42,19 @@ const Header = props => {
                 </Link>
                 {!currentUser ? (
                     <>
-                        <Button edge='end' component={RouterLink} to='/register' color='inherit'>
+                        <Button component={RouterLink} to='/register' color='inherit'>
                             Register
                         </Button>
-                        <Button edge='end' component={RouterLink} to='/login' color='inherit'>
+                        <Button component={RouterLink} to='/login' color='inherit'>
                             Sign in
                         </Button>
                     </>
                 ) : (
                     <>
-                        <Button edge='end' component={RouterLink} to='/dashboard' color='inherit'>
+                        <Button component={RouterLink} to='/dashboard' color='inherit'>
                             My Dashboard
                         </Button>
-                        <Button edge='end' onClick={handleSignOut} color='inherit'>
+                        <Button onClick={handleSignOut} color='inherit'>
                             Logout
                         </Button>
                     </>
