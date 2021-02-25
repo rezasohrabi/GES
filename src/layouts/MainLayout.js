@@ -6,7 +6,7 @@ import Footer from './../components/Footer';
 const MainLayout = props => {
     return (
         <Grid container>
-            <Header {...props}/>
+            <Header />
             <Grid container item>
                 {props.children}
             </Grid>

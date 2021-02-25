@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { checkUserSession } from './redux/User/user.actions';
-import AdminBar from './components/AdminBar';
 //hoc
 import WithAuth from './hoc/withAuth';
 import WithAdminAuth from './hoc/withAdminAuth'
 // layouts
 import MainLayout from './layouts/MainLayout';
+import AdminLayout from './layouts/AdminLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 // pages
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin'
+import Admin from './pages/Admin';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -25,7 +26,6 @@ const App = props => {
 
   return (
     <React.Fragment>
-        <AdminBar />
         <Switch>
           <Route exact path='/' render={() => (
             <MainLayout>
@@ -49,16 +49,16 @@ const App = props => {
           )} />
           <Route path='/dashboard' render={ () => (
             <WithAuth>
-              <MainLayout>
+              <DashboardLayout>
                 <Dashboard />
-              </MainLayout>
+              </DashboardLayout>
             </WithAuth>
           )} />
           <Route path='/admin' render={ () => (
             <WithAdminAuth>
-              <MainLayout>
+              <AdminLayout>
                 <Admin />
-              </MainLayout>
+              </AdminLayout>
             </WithAdminAuth> 
           )} />
         </Switch> 
