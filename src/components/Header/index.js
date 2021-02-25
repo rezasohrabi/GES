@@ -2,9 +2,8 @@ import React from 'react';
 import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link as RouterLink} from 'react-router-dom';
-import { auth } from '../../firebase/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { signOutUserStart } from '../../redux/User/user.actions';
+import { useSelector } from 'react-redux';
+import AdminButton from './../AdminButton'
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -21,14 +20,8 @@ const mapState = ({user}) => ({
 
 const Header = props => {
     const { currentUser } = useSelector(mapState);
-    const dispatch = useDispatch();
     const classes = useStyles();
 
-    const handleSignOut = () => {
-        dispatch(
-            signOutUserStart()
-        );
-    }
     return (
         <AppBar position='static' className={classes.root}>
             <Toolbar>
@@ -52,11 +45,9 @@ const Header = props => {
                 ) : (
                     <>
                         <Button component={RouterLink} to='/dashboard' color='inherit'>
-                            My Dashboard
+                            Dashboard
                         </Button>
-                        <Button onClick={handleSignOut} color='inherit'>
-                            Logout
-                        </Button>
+                        <AdminButton currentUser={currentUser} />
                     </>
                 )}
                 
