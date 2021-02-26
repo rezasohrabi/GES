@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { checkUserSession } from './redux/User/user.actions';
 //hoc
 import WithAuth from './hoc/withAuth';
-import WithAdminAuth from './hoc/withAdminAuth'
+import WithAdminAuth from './hoc/withAdminAuth';
 // layouts
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -16,6 +16,7 @@ import Registration from './pages/Registration';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Search from './pages/Search';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -60,6 +61,11 @@ const App = props => {
                 <Admin />
               </AdminLayout>
             </WithAdminAuth> 
+          )} />
+          <Route path='/search' render={ () => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
           )} />
         </Switch> 
     </React.Fragment> 

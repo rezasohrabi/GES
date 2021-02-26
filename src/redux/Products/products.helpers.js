@@ -17,6 +17,7 @@ export const handleAddProduct = product => {
 export const handleFetchProducts = () => {
     return new Promise( (resolve, reject) => {
         db.collection('products')
+        .orderBy('createdDate')
         .get()
         .then( snapshot => {
             const productsData = snapshot.docs.map( doc => {

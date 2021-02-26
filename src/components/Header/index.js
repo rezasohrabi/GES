@@ -33,6 +33,12 @@ const Header = props => {
                             Geasy Shop
                     </Typography>
                 </Link>
+                <Button component={RouterLink} to='/' color='inherit'>
+                    Home
+                </Button>
+                <Button component={RouterLink} to='/search' color='inherit'>
+                    Search
+                </Button>
                 {!currentUser ? (
                     <>
                         <Button component={RouterLink} to='/register' color='inherit'>
