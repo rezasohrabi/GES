@@ -5,8 +5,9 @@ export const addNewProductStart = product => ({
     payload: product,
 });
 
-export const fetchProductsStart = () => ({
-    type: productTypes.FETCH_PRODUCTS_START
+export const fetchProductsStart = filters => ({
+    type: productTypes.FETCH_PRODUCTS_START,
+    payload: filters
 });
 
 export const deleteProductStart = productId => ({

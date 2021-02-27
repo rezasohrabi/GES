@@ -14,10 +14,11 @@ export const handleAddProduct = product => {
     });
 };
 
-export const handleFetchProducts = () => {
+export const handleFetchProducts = ({filterType}) => {
     return new Promise( (resolve, reject) => {
-        db.collection('products')
-        .orderBy('createdDate')
+        let docs = db.collection('products').orderBy('createdDate');
+        if(filterType) docs = docs.where('productCategory', '==', filterType); 
+        docs
         .get()
         .then( snapshot => {
             const productsData = snapshot.docs.map( doc => {
