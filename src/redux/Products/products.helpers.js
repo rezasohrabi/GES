@@ -14,20 +14,33 @@ export const handleAddProduct = product => {
     });
 };
 
-export const handleFetchProducts = ({filterType}) => {
+export const handleFetchProducts = ({filterType, startAfterDoc, persistProducts=[]}) => {
     return new Promise( (resolve, reject) => {
-        let docs = db.collection('products').orderBy('createdDate');
-        if(filterType) docs = docs.where('productCategory', '==', filterType); 
+        const pageSize = 6;
+        let docs = db.collection('products').orderBy('createdDate', 'desc').limit(pageSize);
+        if(filterType) docs = docs.where('productCategory', '==', filterType);
+        if(startAfterDoc) docs = docs.startAfter(startAfterDoc);
         docs
         .get()
         .then( snapshot => {
-            const productsData = snapshot.docs.map( doc => {
-                return {
-                    ...doc.data(),
-                    productId: doc.id
-                }
+            const totalCount = snapshot.size;
+            console.log('total',totalCount)
+
+            const data = [
+                ...persistProducts,
+                ...snapshot.docs.map( doc => {
+                    return {
+                        ...doc.data(),
+                        productId: doc.id
+                    }
+                }),
+            ];
+
+            resolve({
+                data,
+                queryDoc: snapshot.docs[totalCount - 1],
+                isLastPage: totalCount < 1
             });
-            resolve(productsData);
         })
         .catch((err) => {
             reject(err);

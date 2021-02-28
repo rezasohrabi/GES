@@ -4,6 +4,7 @@ import Dialog from './../../components/Dialog';
 import ProductListItem from '../../components/ProductListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
+import LoadMore from '../../components/LoadMore';
 
 const useStyles = makeStyles((theme) => ({
     productList: {
@@ -24,6 +25,7 @@ const Admin = props => {
     const [open, setOpen] = useState(false);
     const {products} = useSelector(mapState);
     const dispatch = useDispatch();
+    const { data, queryDoc, isLastPage } = products;
 
     const toggleModal = () => {
         setOpen(!open);
@@ -62,8 +64,26 @@ const Admin = props => {
 
     const classes = useStyles();
 
+    const handleLoadMore = () => {
+        dispatch(
+            fetchProductsStart({
+                startAfterDoc: queryDoc,
+                persistProducts: data
+            })
+        );
+    }
+
+    const configLoadMore = {
+        onLoadMore: handleLoadMore,
+    }
+
     return (
         <Box boxShadow={2} m={3} p={3} width='100%'>
+            <Typography
+            align='right'
+            color='textSecondary' 
+            variant='body1'>{data.length} items found
+            </Typography>
             <Button
             variant='outlined'
             onClick={toggleModal}
@@ -126,7 +146,7 @@ const Admin = props => {
                 </form>
             </Dialog>
             <List className={classes.productList}>
-                {products.length > 0 && ( products.map( (product, index) => {
+                {data.length > 0 && ( data.map( (product, index) => {
                     return <ProductListItem 
                             key={index}
                             product={product}
@@ -134,10 +154,13 @@ const Admin = props => {
                             />
                         })
                 )}
-                {products.length === 0 && (
+                {data.length === 0 && (
                     <Typography variant='h5' color='textSecondary'>Items not found.</Typography>
                 )}
             </List>
+            {!isLastPage && (
+                <LoadMore {...configLoadMore} />
+            )}
         </Box>
     );
 };

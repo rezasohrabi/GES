@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom'
 import { fetchProductsStart } from '../../redux/Products/products.actions';
 import ProductItem from './ProductItem'
+import LoadMore from '../LoadMore';
 
 const mapState = ({productsData}) => ({
     products: productsData.products
@@ -25,6 +26,7 @@ const ProductResults = props => {
     const { filterType } = useParams();
     const history = useHistory();
     const classes = useStyles();
+    const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
         dispatch(
@@ -37,9 +39,23 @@ const ProductResults = props => {
     history.push(`/search/${nextFilter}`);
    }
 
-    if (!Array.isArray(products)) return null;
+   const handleLoadMore = () => {
+    dispatch(
+        fetchProductsStart({
+            filterType, 
+            startAfterDoc: queryDoc, 
+            persistProducts: data, 
+        })
+    );
+   }
 
-    if(products.length < 1) {
+   const configLoadMore = {
+       onLoadMore: handleLoadMore
+   }
+
+    if (!Array.isArray(data)) return null;
+
+    if(data.length < 1) {
         return <Typography style={{margin: '2rem'}} variant='h5'>Item not found.</Typography>
     }
 
@@ -67,10 +83,10 @@ const ProductResults = props => {
                 align='right'
                 className={classes.title}
                 color='textSecondary' 
-                variant='body1'>{products.length} items found
+                variant='body1'>{data.length} items found
                 </Typography>
             </Grid>
-            {products.map((porduct, index) => {
+            {data.map((porduct, index) => {
                 const { 
                     productName,
                     productThumbnail,
@@ -87,6 +103,9 @@ const ProductResults = props => {
 
                 return <ProductItem key={index} {...configProduct} />;
             })}
+            { !isLastPage && (
+                <LoadMore {...configLoadMore} />
+            )}
         </Grid>
     );
 };

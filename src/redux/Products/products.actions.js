@@ -5,7 +5,7 @@ export const addNewProductStart = product => ({
     payload: product,
 });
 
-export const fetchProductsStart = filters => ({
+export const fetchProductsStart = (filters ={}) => ({
     type: productTypes.FETCH_PRODUCTS_START,
     payload: filters
 });
