@@ -17,6 +17,7 @@ import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Search from './pages/Search';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -70,6 +71,11 @@ const App = props => {
           <Route path='/search/:filterType' render={ () => (
             <MainLayout>
               <Search />
+            </MainLayout>
+          )} />
+          <Route exact path='/product/:productId' render={ () => (
+            <MainLayout>
+              <ProductDetail />
             </MainLayout>
           )} />
         </Switch> 

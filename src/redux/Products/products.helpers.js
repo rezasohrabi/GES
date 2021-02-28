@@ -61,3 +61,22 @@ export const handleDeleteProduct = productId => {
         })
     });
 }
+
+export const handleFetchProduct = productId => {
+    return new Promise( (resolve, reject) => {
+        db.collection('products')
+        .doc(productId)
+        .get()
+        .then( snapshot => {
+
+            if(snapshot.exists) {
+                resolve(
+                    snapshot.data()
+                );
+            }
+
+        }).catch( err => {
+            reject(err);
+        })
+    });
+}

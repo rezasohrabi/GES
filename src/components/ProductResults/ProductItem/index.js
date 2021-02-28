@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, makeStyles, Grid, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -18,11 +19,12 @@ const ProductItem = ({
     productName,
     productThumbnail,
     productPrice,
+    productId
 }) => {
 
     const classes = useStyles();
 
-    if(!productName || !productThumbnail || 
+    if(!productId || !productName || !productThumbnail || 
         typeof productPrice === 'undefined') return null;
 
     return (
@@ -34,15 +36,19 @@ const ProductItem = ({
         md={4}
         className={classes.root}>
             <Card className={classes.card}>
-                <CardMedia 
-                className={classes.media}
-                image={productThumbnail}
-                title={productName} />
+                <Link to={`/product/${productId}`}>
+                    <CardMedia 
+                    className={classes.media}
+                    image={productThumbnail}
+                    title={productName} />
+                </Link>
                 <CardContent>
-                    <Typography 
-                    variant='body1' 
-                    color='textPrimary' 
-                    component='p'>{productName}</Typography>
+                    <Link to={`/product/${productId}`}>
+                        <Typography 
+                        variant='body1' 
+                        color='textPrimary' 
+                        component='p'>{productName}</Typography>
+                    </Link>
                     <Typography
                     variant='subtitle1'
                     color='primary'

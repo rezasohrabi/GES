@@ -86,19 +86,18 @@ const ProductResults = props => {
                 variant='body1'>{data.length} items found
                 </Typography>
             </Grid>
-            {data.map((porduct, index) => {
+            {data.map((product, index) => {
                 const { 
                     productName,
                     productThumbnail,
                     productPrice,
-                } = porduct;
-                if(!productName || !productThumbnail || 
+                    productId
+                } = product;
+                if(!productId || !productName || !productThumbnail || 
                     typeof productPrice === 'undefined') return null;
 
                 const configProduct = {
-                    productName,
-                    productThumbnail,
-                    productPrice
+                    ...product
                 }
 
                 return <ProductItem key={index} {...configProduct} />;

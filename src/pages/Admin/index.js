@@ -5,6 +5,7 @@ import ProductListItem from '../../components/ProductListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
 import LoadMore from '../../components/LoadMore';
+import CKEditor from 'ckeditor4-react'
 
 const useStyles = makeStyles((theme) => ({
     productList: {
@@ -21,6 +22,7 @@ const Admin = props => {
     const [productCategory, setProductCategory] = useState('mens');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0); 
+    const [productDesc, setProductDesc] = useState('');
 
     const [open, setOpen] = useState(false);
     const {products} = useSelector(mapState);
@@ -32,6 +34,7 @@ const Admin = props => {
     }
 
     useEffect(() => {
+        console.log('product', data )
         dispatch(
             fetchProductsStart()
             );
@@ -44,7 +47,8 @@ const Admin = props => {
                 productName,
                 productCategory,
                 productThumbnail,
-                productPrice
+                productPrice,
+                productDesc
             })
         );
         resetForm();
@@ -60,6 +64,7 @@ const Admin = props => {
         setProductCategory('mens');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDesc('');
     }
 
     const classes = useStyles();
@@ -76,6 +81,8 @@ const Admin = props => {
     const configLoadMore = {
         onLoadMore: handleLoadMore,
     }
+
+    if (!Array.isArray(data)) return null;
 
     return (
         <Box boxShadow={2} m={3} p={3} width='100%'>
@@ -135,6 +142,9 @@ const Admin = props => {
                     onChange={ e => setProductPrice(e.target.value) }
                     margin='normal'
                     fullWidth
+                    />
+                    <CKEditor
+                    onChange={e => setProductDesc(e.editor.getData())}
                     />
                     <DialogActions>
                         <Button 
