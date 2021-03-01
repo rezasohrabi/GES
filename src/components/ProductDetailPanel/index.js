@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Box, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
+import { addToCart } from '../../redux/Cart/cart.actions';
 
 const useStyles = makeStyles( (theme) => ({
     avatar: {
@@ -19,7 +20,7 @@ const mapState = ({productsData}) => ({
     product: productsData.product
 });
 
-const ProductDetailPanel = () => {
+const ProductDetailPanel = (props) => {
     const { productId } = useParams();
     const { product } = useSelector(mapState);
     const dispatch = useDispatch();
@@ -44,6 +45,15 @@ const ProductDetailPanel = () => {
 
     const classes = useStyles();
 
+    if(!productId) return null;
+
+    const handleAddToCart = () => {
+        if(!product) return;
+        dispatch(
+            addToCart(product)
+        )
+    }
+
     return (
         <Box 
         display='flex' 
@@ -64,6 +74,11 @@ const ProductDetailPanel = () => {
                     <Typography
                     variant='h6'
                     color='primary'>${productPrice}</Typography>
+                    <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleAddToCart}
+                    >Add To Cart</Button>
                 </Grid>
             </Grid>
             <br />

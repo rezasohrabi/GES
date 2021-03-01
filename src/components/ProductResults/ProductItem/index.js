@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, makeStyles, Grid, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from './../../../redux/Cart/cart.actions'
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -15,17 +17,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductItem = ({
-    productName,
-    productThumbnail,
-    productPrice,
-    productId
-}) => {
+const ProductItem = product => {
+
+    const {
+        productId,
+        productThumbnail,
+        productName,
+        productPrice
+      } = product;
 
     const classes = useStyles();
+    const dispatch = useDispatch();
+
 
     if(!productId || !productName || !productThumbnail || 
         typeof productPrice === 'undefined') return null;
+
+    const handleAddToCart = () => {
+        if (!product) return;
+        dispatch(
+            addToCart(product)
+        )
+    }
 
     return (
         <Grid 
@@ -56,6 +69,7 @@ const ProductItem = ({
                     <Button
                     variant='outlined'
                     color='primary'
+                    onClick={handleAddToCart}
                     size='small'>add to cart</Button>
                 </CardContent>
             </Card>
