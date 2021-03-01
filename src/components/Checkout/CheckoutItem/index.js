@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, TableCell, TableRow, makeStyles } from '@material-ui/core';
 import { Add, Remove, Close } from '@material-ui/icons'
 import { useDispatch } from 'react-redux';
-import { removeCartItem } from '../../../redux/Cart/cart.actions';
+import { addToCart, removeCartItem } from '../../../redux/Cart/cart.actions';
 
 const useStyles = makeStyles( (theme) => ({
     image: {
@@ -29,6 +29,13 @@ const CheckoutItem = cartItem => {
             removeCartItem(productId)
         )
     }
+
+    const handleIncreaseQuantity = () => {
+        dispatch(
+            addToCart(cartItem)
+        )
+    }
+
     return (
         <TableRow>
             <TableCell>
@@ -40,6 +47,7 @@ const CheckoutItem = cartItem => {
             <TableCell align='center'>
                 <IconButton
                 color='secondary'
+                onClick={handleIncreaseQuantity}
                 component='span'>
                     <Add />
                 </IconButton>
