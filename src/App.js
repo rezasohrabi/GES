@@ -18,6 +18,7 @@ import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Search from './pages/Search';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Cart from './pages/Cart';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -76,6 +77,11 @@ const App = props => {
           <Route exact path='/product/:productId' render={ () => (
             <MainLayout>
               <ProductDetail />
+            </MainLayout>
+          )} />
+          <Route path='/cart' render={ () => (
+            <MainLayout>
+              <Cart />
             </MainLayout>
           )} />
         </Switch> 

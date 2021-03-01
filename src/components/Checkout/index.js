@@ -1,0 +1,89 @@
+import { 
+    TableContainer, 
+    Paper, 
+    Table, 
+    TableHead, 
+    TableRow, 
+    TableCell, 
+    Container, 
+    makeStyles, 
+    Typography, 
+    TableBody, 
+    Button
+    } from '@material-ui/core';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCartItems } from '../../redux/Cart/cart.selectors';
+import CheckoutItem from './CheckoutItem';
+
+const useStyles = makeStyles( (theme) => ({
+    title: {
+        marginBottom: theme.spacing(2),
+    },
+    checkoutWrapper: {
+        marginTop: theme.spacing(8),
+    },
+}));
+
+const mapState = createStructuredSelector({
+    cartItems: selectCartItems,
+});
+
+const Checkout = props => {
+
+    const { cartItems } = useSelector(mapState);
+    const classes = useStyles();
+
+    return (
+        <Container maxWidth='md' className={classes.checkoutWrapper}>
+            {cartItems.length > 0? [
+                <Typography 
+                className={classes.title}
+                variant='h5' 
+                >Checkout Cart</Typography>,
+                <TableContainer component={Paper}>
+                    <Table aria-label='checkout table'>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Product</TableCell>
+                                <TableCell>Description</TableCell>
+                                <TableCell>Quantity</TableCell>
+                                <TableCell>Price</TableCell>
+                                <TableCell>Remove</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {cartItems.map( (cartItem, pos) => (
+                                <CheckoutItem key={pos} {...cartItem} />
+                            ))}
+                            <TableRow>
+                                <TableCell colSpan='3' align='left'>
+                                    <Button 
+                                    variant='outlined'
+                                    color='secondary'
+                                    >Continue Shopping</Button>{' '}
+                                    <Button 
+                                    variant='contained'
+                                    color='primary'
+                                    >Checkout</Button>
+                                </TableCell>
+                                <TableCell colSpan='2'>
+                                    <Typography
+                                    variant='body1'
+                                    color='primary'
+                                    >Total: 456 $</Typography>
+                                </TableCell>
+                            </TableRow>
+                            
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            ] : <Typography
+                variant='h5'
+                >Your cart is empty</Typography>}
+        </Container>
+    )
+}
+
+export default Checkout;
