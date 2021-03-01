@@ -1,6 +1,8 @@
 import React from 'react';
 import { IconButton, TableCell, TableRow, makeStyles } from '@material-ui/core';
 import { Add, Remove, Close } from '@material-ui/icons'
+import { useDispatch } from 'react-redux';
+import { removeCartItem } from '../../../redux/Cart/cart.actions';
 
 const useStyles = makeStyles( (theme) => ({
     image: {
@@ -9,16 +11,24 @@ const useStyles = makeStyles( (theme) => ({
     }
 }));
 
-const CheckoutItem = product => {
+const CheckoutItem = cartItem => {
 
     const {
         productName,
         productThumbnail,
         quantity,
-        productPrice
-    } = product;
+        productPrice,
+        productId,
+    } = cartItem;
 
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const handleRemoveCartItem = () => {
+        dispatch(
+            removeCartItem(productId)
+        )
+    }
     return (
         <TableRow>
             <TableCell>
@@ -46,6 +56,7 @@ const CheckoutItem = product => {
             <TableCell>
                 <IconButton
                 color='secondary'
+                onClick={handleRemoveCartItem}
                 component='span'>
                     <Close />
                 </IconButton>
