@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
 import { addToCart } from '../../redux/Cart/cart.actions';
 
@@ -24,6 +24,7 @@ const ProductDetailPanel = (props) => {
     const { productId } = useParams();
     const { product } = useSelector(mapState);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const {
         productName,
@@ -52,6 +53,7 @@ const ProductDetailPanel = (props) => {
         dispatch(
             addToCart(product)
         )
+        history.push('/cart');
     }
 
     return (

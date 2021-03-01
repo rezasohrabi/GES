@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, makeStyles, Grid, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from './../../../redux/Cart/cart.actions'
 
@@ -28,6 +28,7 @@ const ProductItem = product => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
 
     if(!productId || !productName || !productThumbnail || 
@@ -38,6 +39,7 @@ const ProductItem = product => {
         dispatch(
             addToCart(product)
         )
+        history.push('/cart')
     }
 
     return (

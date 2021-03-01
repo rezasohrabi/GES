@@ -13,6 +13,7 @@ import {
     } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/Cart/cart.selectors';
 import CheckoutItem from './CheckoutItem';
@@ -34,13 +35,14 @@ const Checkout = props => {
 
     const { cartItems } = useSelector(mapState);
     const classes = useStyles();
+    const history = useHistory();
 
     return (
         <Container maxWidth='md' className={classes.checkoutWrapper}>
             {cartItems.length > 0? [
                 <Typography 
                 className={classes.title}
-                variant='h5' 
+                variant='h4' 
                 >Checkout Cart</Typography>,
                 <TableContainer component={Paper}>
                     <Table aria-label='checkout table'>
@@ -62,6 +64,7 @@ const Checkout = props => {
                                     <Button 
                                     variant='outlined'
                                     color='secondary'
+                                    onClick={() => history.goBack()}
                                     >Continue Shopping</Button>{' '}
                                     <Button 
                                     variant='contained'
