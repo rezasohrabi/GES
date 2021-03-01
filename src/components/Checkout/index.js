@@ -15,7 +15,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
-import { selectCartItems } from '../../redux/Cart/cart.selectors';
+import { selectCartItems, selectCartTotalPrice } from '../../redux/Cart/cart.selectors';
 import CheckoutItem from './CheckoutItem';
 
 const useStyles = makeStyles( (theme) => ({
@@ -29,11 +29,12 @@ const useStyles = makeStyles( (theme) => ({
 
 const mapState = createStructuredSelector({
     cartItems: selectCartItems,
+    totalPrice: selectCartTotalPrice
 });
 
 const Checkout = props => {
 
-    const { cartItems } = useSelector(mapState);
+    const { cartItems, totalPrice } = useSelector(mapState);
     const classes = useStyles();
     const history = useHistory();
 
@@ -75,7 +76,7 @@ const Checkout = props => {
                                     <Typography
                                     variant='body1'
                                     color='primary'
-                                    >Total: 456 $</Typography>
+                                    >Total: {totalPrice.toFixed(2)}$</Typography>
                                 </TableCell>
                             </TableRow>
                             
