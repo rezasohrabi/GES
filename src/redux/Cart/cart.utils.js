@@ -41,3 +41,25 @@ export const handleRemoveCartItem = ({
         cartItem.productId !== cartItemToRemove
         );
 }
+
+export const handleDecreaseCartItemQuantity = ({
+    prevCartItems,
+    cartItemToDecrease,
+}) => {
+    const existingCartItem = prevCartItems.find(cartItem =>
+        cartItem.productId === cartItemToDecrease.productId);
+
+    if (existingCartItem.quantity === 1) {
+        return prevCartItems.filter( cartItem => 
+          cartItem.productId !== existingCartItem.productId  
+        );
+    }
+
+    return prevCartItems.map(cartItem => 
+        cartItem.productId === existingCartItem.productId? {
+            ...cartItem,
+            quantity: cartItem.quantity - 1,
+        } : 
+        cartItem
+    );
+}
