@@ -71,6 +71,7 @@ const Checkout = props => {
                                     <Button 
                                     variant='contained'
                                     color='primary'
+                                    onClick={() => history.push('/payment')}
                                     >Checkout</Button>
                                 </TableCell>
                                 <TableCell colSpan='2'>

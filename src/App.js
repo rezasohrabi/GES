@@ -19,6 +19,7 @@ import Admin from './pages/Admin';
 import Search from './pages/Search';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart';
+import Payment from './pages/Payment';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -82,6 +83,11 @@ const App = props => {
           <Route path='/cart' render={ () => (
             <MainLayout>
               <Cart />
+            </MainLayout>
+          )} />
+          <Route path='/payment' render={ () => (
+            <MainLayout>
+              <Payment />
             </MainLayout>
           )} />
         </Switch> 
