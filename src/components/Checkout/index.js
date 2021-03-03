@@ -41,11 +41,12 @@ const Checkout = props => {
     return (
         <Container maxWidth='md' className={classes.checkoutWrapper}>
             {cartItems.length > 0? [
-                <Typography 
+                <Typography
+                key={1} 
                 className={classes.title}
                 variant='h4' 
                 >Checkout Cart</Typography>,
-                <TableContainer component={Paper}>
+                <TableContainer key={2} component={Paper}>
                     <Table aria-label='checkout table'>
                         <TableHead>
                             <TableRow>

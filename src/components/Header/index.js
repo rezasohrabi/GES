@@ -48,22 +48,22 @@ const Header = props => {
                 </Button>
                 <span className={classes.flexGrow} />
                 {!currentUser ? [
-                        <Button component={RouterLink} to='/register' color='inherit'>
+                        <Button key={0} component={RouterLink} to='/register' color='inherit'>
                             Register
                         </Button>,
-                        <Button component={RouterLink} to='/login' color='inherit'>
+                        <Button key={1} component={RouterLink} to='/login' color='inherit'>
                             Sign in
                         </Button>
                 ] : [
-                        <Badge badgeContent={totalCartItemsNum} color='secondary'>
+                        <Badge key={0} badgeContent={totalCartItemsNum} color='secondary'>
                             <Button component={RouterLink} to='/cart' color='inherit'>
                                 My Cart
                             </Button>
                         </Badge>,
-                        <Button component={RouterLink} to='/dashboard' color='inherit'>
+                        <Button key={1} component={RouterLink} to='/dashboard' color='inherit'>
                             Dashboard
                         </Button>,
-                        <AdminButton currentUser={currentUser} />
+                        <AdminButton key={2} currentUser={currentUser} />
                 ]}
                 
             </Toolbar>
