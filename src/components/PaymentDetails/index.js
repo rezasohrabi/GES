@@ -1,10 +1,39 @@
-import React from 'react';
-import { Box, Button, Container, Select, MenuItem, TextField, Typography, InputLabel } from '@material-ui/core';
-import countryList from 'react-select-country-list';
+import React, { useState } from 'react';
+import { Box, Button, Container, TextField, Typography, InputLabel } from '@material-ui/core';
+import SelectCountry from '../SelectCountry';
+
+const initialAddressState = {
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: 'US',
+};
 
 const PaymentDetails = props => {
+    const [recipientName, setRecipientName] = useState('');
+    const [nameOnCard, setNameOnCard] = useState('');
+    const [shippingAddress, setShippingAddress] = useState({...initialAddressState});
+    const [billingAddress, setBillingAddress] = useState({...initialAddressState});
 
-    const countryData = countryList().getData();
+
+    const handleShippingChange = e => {
+        const {name, value} = e.target;
+        setShippingAddress({
+            ...shippingAddress,
+            [name]: value,
+        });
+        console.log('target', e);
+    };
+
+    const handleBillingAddress = e => {
+        const {name, value} = e.target;
+        setBillingAddress({
+            ...billingAddress,
+            [name]: value,
+        });
+    };
 
     const handleSubmit = async () => {
 
@@ -23,6 +52,8 @@ const PaymentDetails = props => {
                     label='Recipient Name'
                     type='text'
                     margin='normal'
+                    value={recipientName}
+                    onChange={e => setRecipientName(e.target.value)}
                     required
                     fullWidth
                     autoFocus
@@ -31,14 +62,8 @@ const PaymentDetails = props => {
                     name='line1'
                     label='Line 1'
                     type='text'
-                    margin='normal'
-                    required
-                    fullWidth
-                    />
-                    <TextField
-                    name='line1'
-                    label='Line 1'
-                    type='text'
+                    value={shippingAddress.line1}
+                    onChange={e => handleShippingChange(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -47,6 +72,8 @@ const PaymentDetails = props => {
                     name='line2'
                     label='Line 2'
                     type='text'
+                    value={shippingAddress.line2}
+                    onChange={e => handleShippingChange(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -55,6 +82,8 @@ const PaymentDetails = props => {
                     name='city'
                     label='City'
                     type='text'
+                    value={shippingAddress.city}
+                    onChange={e => handleShippingChange(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -63,23 +92,18 @@ const PaymentDetails = props => {
                     name='state'
                     label='State'
                     type='text'
+                    value={shippingAddress.state}
+                    onChange={e => handleShippingChange(e)}
                     margin='normal'
                     required
                     fullWidth
                     />
-                    <InputLabel id='countryLabel' style={{marginTop: '1rem'}}>Country</InputLabel>
-                    <Select 
-                    labelId='countryLabel'
-                    fullWidth>
-                        {countryData.map(country => {
-                            const { value, label } = country;
-                            return <MenuItem 
-                            key={value} 
-                            value={value}
-                            >{label}
-                            </MenuItem>
-                        })}                      
-                    </Select>
+                    <SelectCountry
+                    value={shippingAddress.country}
+                    onChange={e => handleShippingChange(e)}
+                    label='Country'
+                    fullWidth
+                    />
                 </Box>
                 <Box mb={8}>
                     <Typography
@@ -89,6 +113,8 @@ const PaymentDetails = props => {
                     name='name on card'
                     label='Name On Card'
                     type='text'
+                    value={nameOnCard}
+                    onChange={e => setNameOnCard(e.target.value)}
                     margin='normal'
                     required
                     fullWidth
@@ -97,6 +123,8 @@ const PaymentDetails = props => {
                     name='line1'
                     label='Line 1'
                     type='text'
+                    value={billingAddress.line1}
+                    onChange={e => setBillingAddress(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -105,6 +133,8 @@ const PaymentDetails = props => {
                     name='line2'
                     label='Line 2'
                     type='text'
+                    value={billingAddress.line2}
+                    onChange={e => setBillingAddress(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -113,6 +143,8 @@ const PaymentDetails = props => {
                     name='city'
                     label='City'
                     type='text'
+                    value={billingAddress.city}
+                    onChange={e => setBillingAddress(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -121,6 +153,8 @@ const PaymentDetails = props => {
                     name='state'
                     label='State'
                     type='text'
+                    value={billingAddress.state}
+                    onChange={e => setBillingAddress(e)}
                     margin='normal'
                     required
                     fullWidth
@@ -129,23 +163,18 @@ const PaymentDetails = props => {
                     name='postalCode'
                     label='Postal Code'
                     type='number'
+                    value={billingAddress.postalCode}
+                    onChange={e => setBillingAddress(e)}
                     margin='normal'
                     required
                     fullWidth
                     />
-                    <InputLabel id='countryLabel' style={{marginTop: '1rem'}}>Country</InputLabel>
-                    <Select 
-                    labelId='countryLabel'
-                    fullWidth>
-                        {countryData.map(country => {
-                            const { value, label } = country;
-                            return <MenuItem 
-                            key={value} 
-                            value={value}
-                            >{label}
-                            </MenuItem>
-                        })}                      
-                    </Select>
+                    <SelectCountry
+                    value={billingAddress.country}
+                    onChange={e => handleBillingAddress(e)}
+                    label='Country'
+                    fullWidth
+                    />
                 </Box>
                 <Box mb={8}>
                     <Typography
