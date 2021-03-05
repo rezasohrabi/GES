@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 const SelectCountry = ({value, onChange, label, ...otherProps}) => {
 
     const classes = useStyles();
-    console.log(countryList())
     const countryData = countryList().getData();
 
     return (
