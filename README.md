@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+### dependencies
+dependency name | npm | description
+--- | --- | --- 
+material ui | `npm install @material-ui/core` |  Material-UI, the world's most popular React UI framework.
+material ui icons |  `npm install @material-ui/icons` |  For using icons with Material-UI.
+react router dom | `npm install react-router-dom` |  React Router is a collection of navigational components that compose declaratively with your application.
+firebase | `npm i firebase` |  Backed by Google and loved by app development teams - from startups to global enterprises.
+reudx | `npm install redux` | Redux is a predictable state container for JavaScript apps.
+react redux | `npm install react-redux` |   The React bindings for redux.
+redux logger | `npm install redux-logger` | A middleware which logs dispatched actions and the resulting new state. 
+redux thunk | `npm install redux-thunk` |  The redux-thunk middleware allows simple asynchronous use of dispatch.
+material ui | `npm install --save redux-saga` |  redux-saga is a library that aims to make application side effects easier to manage, more efficient to execute, easy to test, and better at handling failures.
+CK editor | `npm install ckeditor4-react` | Smart WYSIWYG HTML editor. 
+select country list | `npm install react-select-country-list --save` | This package take country-list as reference, and make it more friendly to react-select. 
+redux persist | `npm install redux-persist` |  Persist and rehydrate a redux store.
+reselect | `npm install reselect` |  Selector library for Redux.
+axios | `npm install axios` |  Promise based HTTP client for the browser and node.js .
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### use firebase functions to run node.js (express) app 
 
-## Available Scripts
+```jsx
+1: npm install -g firebase-tools
+2: firebase login
+3: firebase init
+4: cd functions
+5: npm install express cors 
+```
+### run functions server
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```jsx
+1: cd functions
+2: npm run serve
+```
