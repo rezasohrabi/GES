@@ -47,8 +47,10 @@ const ProductItem = product => {
         container 
         item 
         xs={12} 
-        sm={6} 
-        md={4}
+        md={6}
+        lg={4}
+        xl={3}
+
         className={classes.root}>
             <Card className={classes.card}>
                 <Link to={`/product/${productId}`}>

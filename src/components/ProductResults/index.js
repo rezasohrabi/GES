@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, makeStyles, Typography, Select, InputLabel, MenuItem, FormControl } from '@material-ui/core';
+import { Grid, makeStyles, Typography, Select, InputLabel, MenuItem, FormControl, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductsStart } from '../../redux/Products/products.actions';
-import ProductItem from './ProductItem'
-import LoadMore from '../LoadMore';
+import ProductItem from './ProductItem';
+import Paginator from '../Paginator';
+import ProductsFiltersPanel from './ProductsFiltersPanel';
+import ProductsSortsPanel from './ProductsSortsPanel';
 
 const mapState = ({productsData}) => ({
     products: productsData.products
@@ -61,11 +63,8 @@ const ProductResults = props => {
 
     return (
         <Grid container item className={classes.productGrid}>
-            <Grid container item>
-                <Typography 
-                className={classes.title} 
-                variant='h4'>Browse products
-                </Typography>
+            {/* <Grid container item xs={12} sm={12}>
+                <Card >
                 <FormControl>
                     <InputLabel shrink id='productCategoryLabel'>Category</InputLabel>
                     <Select
@@ -85,26 +84,35 @@ const ProductResults = props => {
                 color='textSecondary' 
                 variant='body1'>{data.length} items found
                 </Typography>
+                </Card>
+            </Grid> */}
+            <Grid container item xs={12}>
+                <ProductsSortsPanel 
+                title='this is title' 
+                />
             </Grid>
-            {data.map((product, index) => {
-                const { 
-                    productName,
-                    productThumbnail,
-                    productPrice,
-                    productId
-                } = product;
-                if(!productId || !productName || !productThumbnail || 
-                    typeof productPrice === 'undefined') return null;
+            <Grid container item xs={12} sm={4} md={3}>
+                <ProductsFiltersPanel />
+            </Grid>
+            <Grid container item xs={12} sm={8} md={9}>
+                {data.map((product, index) => {
+                    const { 
+                        productName,
+                        productThumbnail,
+                        productPrice,
+                        productId
+                    } = product;
+                    if(!productId || !productName || !productThumbnail || 
+                        typeof productPrice === 'undefined') return null;
 
-                const configProduct = {
-                    ...product
-                }
+                    const configProduct = {
+                        ...product
+                    }
 
-                return <ProductItem key={index} {...configProduct} />;
-            })}
-            { !isLastPage && (
-                <LoadMore {...configLoadMore} />
-            )}
+                    return <ProductItem key={index} {...configProduct} />;
+                })}
+            </Grid>
+            <Paginator card count={30} color='primary'/>
         </Grid>
     );
 };
