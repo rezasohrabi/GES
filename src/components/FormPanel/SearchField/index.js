@@ -1,6 +1,7 @@
 import React from 'react';
 import { Search } from '@material-ui/icons';
 import { makeStyles, InputBase, fade } from '@material-ui/core';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,14 +29,9 @@ const useStyles = makeStyles((theme) => ({
 const SearchField = ({placeholder, fullWidth, ...otherProps}) => {
     const classes = useStyles();
     return (
-        <div className={fullWidth
-        ?{
-            root: classes.root,
-            fullWidth: classes.searchInput
-        }  
-        :
-        classes.root 
-        }>
+        <div className={clsx(classes.root, 
+            {[classes.searchInput]: fullWidth}
+            )}>
             <Search color='inherit' className={classes.searchIcon}/>
             <InputBase
               placeholder={placeholder}
