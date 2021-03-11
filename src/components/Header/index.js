@@ -1,70 +1,201 @@
 import React from 'react';
-import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography, Badge } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography, Badge, Grid, List, ListItem, ListItemText, Divider, Collapse } from '@material-ui/core';
+import { Menu, ShoppingCartOutlined, AccountCircleOutlined } from '@material-ui/icons';
+import clsx from 'clsx';
 import { Link as RouterLink} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AdminButton from './../AdminButton'
 import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
+import SearchField from './../../components/FormPanel/SearchField';
+import { signOutUserStart } from '../../redux/User/user.actions';
+import { openMobileMenu } from './../../redux/App/app.actions'
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
-        '& > *:not(:nth-child(2))': {
-            marginLeft: theme.spacing(2)
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        padding: theme.spacing(2),
+    },
+    searchBar: {
+        flexWrap: 'nowrap',
+        justifyContent: 'space-between',
+    },
+    searchField: {
+        color: theme.palette.common.white,
+        width: '100%',
+    },
+    sectionDesktop: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
         },
     },
-    menuButton: {
-        marginRight: theme.spacing(2)
+    sectionMobile: {
+        display: 'flex',
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
     },
-    flexGrow: {
-        flexGrow: 1,
+    list: {
+       flexDirection: 'column', 
+       width: '100%',
+    },
+    logo: {
+        margin: theme.spacing(0, 2),
     },
 }));
 
 const mapState = state => ({
     currentUser: state.user.currentUser,
-    totalCartItemsNum: selectCartItemsCount(state)
+    totalCartItemsNum: selectCartItemsCount(state),
+    isOpenMobileMenu: state.appData.isOpenMobileMenu,
 });
 
 const Header = props => {
-    const { currentUser, totalCartItemsNum } = useSelector(mapState);
+    const { currentUser, totalCartItemsNum, isOpenMobileMenu } = useSelector(mapState);
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const handleSignOut = () => {
+        dispatch(
+            signOutUserStart()
+        )
+    }
+
+    const toggleMenu = () => {
+        dispatch(
+            openMobileMenu()
+        )
+    }
+
+    const sectionMobile = (
+    <Collapse in={isOpenMobileMenu} className={classes.list}>
+        <List 
+            component='nav' 
+            aria-label='mobile menu'
+            className={clsx(classes.sectionMobile, classes.list)}>
+            <ListItem>
+                <SearchField
+                placeholder='Search Product' 
+                fullWidth
+                className={classes.searchField}/>
+            </ListItem>
+            <ListItem button component={RouterLink} to='/products/men'>
+                <ListItemText primary='Men'/>
+            </ListItem>
+            <ListItem button component={RouterLink} to='/products/women'>
+                <ListItemText primary='Women'/>
+            </ListItem>
+            <ListItem button component={RouterLink} to='/products/boys'>
+                <ListItemText primary='Boys'/>
+            </ListItem>
+            <ListItem button component={RouterLink} to='/products/girls'>
+                <ListItemText primary='Girls'/>
+            </ListItem>
+            <ListItem button component={RouterLink} to='/products/baby'>
+                <ListItemText primary='Baby'/>
+            </ListItem>
+            <Divider/>
+            {!currentUser? [
+                <ListItem button key={0} button component={RouterLink} to='/register'>
+                    <ListItemText primary='Register' />
+                </ListItem>,
+                <ListItem button key={1} button component={RouterLink} to='/login'>
+                    <ListItemText primary='Sign In' />
+                </ListItem>
+            ] : [
+                <ListItem button key={0} button component={RouterLink} to='/dashboard'>
+                    <ListItemText primary='Dashboard'/>
+                </ListItem>,
+                <ListItem button key={1} button component={RouterLink} to='/admin'>
+                    <ListItemText primary='Admin'/>
+                </ListItem>,
+                <ListItem button key={2} button onClick={handleSignOut}>
+                    <ListItemText primary='Logout'/>
+                </ListItem>
+            ] 
+            }
+        </List>
+    </Collapse>
+    );
 
     return (
         <AppBar position='static' className={classes.root}>
             <Toolbar className={classes.toolbar}>
-                <IconButton className={classes.menuButton} color='inherit' size='medium' aria-label='menu'>
-                    <MenuIcon />
-                </IconButton>
-                <Link component={RouterLink} to='/' color='inherit'>
-                    <Typography variant='h6'>
-                            Geasy Shop
-                    </Typography>
-                </Link>
-                <Button component={RouterLink} to='/' color='inherit'>
-                    Home
-                </Button>
-                <Button component={RouterLink} to='/search' color='inherit' className={classes.searchButton}>
-                    Search
-                </Button>
-                <span className={classes.flexGrow} />
-                {!currentUser ? [
-                        <Button key={0} component={RouterLink} to='/register' color='inherit'>
-                            Register
-                        </Button>,
-                        <Button key={1} component={RouterLink} to='/login' color='inherit'>
-                            Sign in
-                        </Button>
-                ] : [
-                        <Badge key={0} badgeContent={totalCartItemsNum} color='secondary'>
-                            <Button component={RouterLink} to='/cart' color='inherit'>
-                                My Cart
-                            </Button>
-                        </Badge>,
-                        <Button key={1} component={RouterLink} to='/dashboard' color='inherit'>
-                            Dashboard
-                        </Button>,
-                        <AdminButton key={2} currentUser={currentUser} />
-                ]}
+                <Grid container alignItems='center' className={classes.searchBar}>
+                    <IconButton
+                    className={classes.sectionMobile}
+                    aria-label='show more'
+                    aria-haspopup='true'
+                    color='inherit'
+                    onClick={toggleMenu}
+                    >
+                        <Menu />
+                    </IconButton>
+                    <Link component={RouterLink} to='/' color='inherit' className={classes.logo}>
+                        <Typography variant='h5' noWrap>
+                                Geasy Shop
+                        </Typography>
+                    </Link>
+                    <div className={clsx(classes.sectionDesktop, classes.searchField)}>
+                        <SearchField
+                        placeholder='Search Product' 
+                        className={classes.searchField}
+                        fullWidth
+                        />
+                    </div>
+                    <Grid container item justify='flex-end' className={classes.sectionDesktop}>
+                        {!currentUser ? [
+                            <Link key={0} component={RouterLink} to='/register' color='inherit'>
+                                Register
+                            </Link>,
+                            <Link key={1} component={RouterLink} to='/login' color='inherit'>
+                                Sign In
+                            </Link>
+                        ] : [   
+                            <AdminButton key={0} currentUser={currentUser} />,
+                            <IconButton
+                            key={1} 
+                            color='inherit' 
+                            size='medium' 
+                            aria-label='my account' 
+                            component={RouterLink} 
+                            to='/dashboard'>
+                                <AccountCircleOutlined />
+                            </IconButton> 
+                        ]}
+                    </Grid>
+                    <IconButton 
+                    color='inherit' 
+                    size='medium' 
+                    aria-label='my cart' 
+                    component={RouterLink} 
+                    to='/cart'
+                    className={classes.searchButton}>
+                        <Badge badgeContent={totalCartItemsNum} color='secondary'>
+                            <ShoppingCartOutlined />
+                        </Badge>
+                    </IconButton>
+                </Grid>
+                {sectionMobile}
+                <Grid container item className={classes.sectionDesktop}>
+                    <Button component={RouterLink} to='/products/men' color='inherit'>
+                        Men
+                    </Button>
+                    <Button component={RouterLink} to='/products/women' color='inherit'>
+                        Women
+                    </Button>
+                    <Button component={RouterLink} to='/products/boys' color='inherit'>
+                        Boys
+                    </Button>
+                    <Button component={RouterLink} to='/products/girls' color='inherit'>
+                        Girls
+                    </Button>
+                    <Button component={RouterLink} to='/products/baby' color='inherit'>
+                        Baby
+                    </Button>
+                </Grid>
                 
             </Toolbar>
         </AppBar>
