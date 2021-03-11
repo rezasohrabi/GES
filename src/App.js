@@ -65,12 +65,12 @@ const App = props => {
               </AdminLayout>
             </WithAdminAuth> 
           )} />
-          <Route exact path='/search' render={ () => (
+          <Route exact path='/products' render={ () => (
             <MainLayout>
               <Search />
             </MainLayout>
           )} />
-          <Route path='/search/:filterType' render={ () => (
+          <Route path='/products/:filterType' render={ () => (
             <MainLayout>
               <Search />
             </MainLayout>
