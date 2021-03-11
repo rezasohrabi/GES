@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
        flexDirection: 'column', 
        width: '100%',
     },
-    logo: {
+    mx: {
         margin: theme.spacing(0, 2),
     },
 }));
@@ -133,7 +133,7 @@ const Header = props => {
                     >
                         <Menu />
                     </IconButton>
-                    <Link component={RouterLink} to='/' color='inherit' className={classes.logo}>
+                    <Link component={RouterLink} to='/' color='inherit' className={classes.mx}>
                         <Typography variant='h5' noWrap>
                                 Geasy Shop
                         </Typography>
@@ -147,7 +147,7 @@ const Header = props => {
                     </div>
                     <Grid container item justify='flex-end' className={classes.sectionDesktop}>
                         {!currentUser ? [
-                            <Link key={0} component={RouterLink} to='/register' color='inherit'>
+                            <Link key={0} component={RouterLink} to='/register' color='inherit' className={classes.mx}>
                                 Register
                             </Link>,
                             <Link key={1} component={RouterLink} to='/login' color='inherit'>

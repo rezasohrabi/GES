@@ -87,7 +87,7 @@ const ProductsSortsPanel = ({title}) => {
                     size='small'
                     key={index}
                     variant={clsx(sortIndex === index ? 'outlined' : 'text')}
-                    color={clsx(sortIndex === index? 'primary' : '')}
+                    color={clsx(sortIndex === index? 'primary' : 'inherit')}
                     onClick={e => handleSort(e, index)}
                     >{name}</Button>
                 })
