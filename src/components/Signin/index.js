@@ -92,7 +92,6 @@ const Signin = props => {
                 margin='normal'
                 required
                 fullWidth
-                autoFocus
                 />
                 <TextField
                 name='password'

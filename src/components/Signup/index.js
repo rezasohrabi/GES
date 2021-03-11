@@ -69,7 +69,6 @@ const Signup = props => {
                 type='text'
                 margin='normal'
                 fullWidth
-                autoFocus
                 required
                 />
                 <TextField
