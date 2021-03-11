@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons'
+import { IconButton } from '@material-ui/core';
+import { SupervisorAccountOutlined } from '@material-ui/icons'
 import { Link as RouterLink } from 'react-router-dom'
 import { checkUserIsAdmin } from '../../utils';
 
@@ -12,15 +12,14 @@ const AdminButton = props => {
     if (!isAdmin) return null;
 
     return (
-        <Button 
-        startIcon={<AccountCircle />}
+        <IconButton
+        color='inherit' 
+        size='medium' 
+        aria-label='admin' 
         component={RouterLink} 
-        to='/admin'
-        size='small' 
-        variant='outlined' 
-        color='inherit'>
-            My Admin
-        </Button> 
+        to='/admin'>
+            <SupervisorAccountOutlined />
+        </IconButton> 
     )
 };
 
