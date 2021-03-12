@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.primary,
         display: 'none',
         padding: theme.spacing(2),
-        transition: theme.transitions.create([], {
+        transition: theme.transitions.create(['all'], {
             duration: theme.transitions.duration.standard,
         }),
         '&:hover': {
@@ -130,7 +130,7 @@ const MegaMenu = ({category, ...otherProps}) => {
     const classes = useStyles();
     return (
         <Grid container item direction='row' className={classes.root}>
-            <Grid container item md={9}>
+            <Grid container item md={8} lg={9}>
                 <MenuList className={classes.menuList}>
                     {categoryList.map(category => (
                         <MenuItem>
@@ -140,7 +140,7 @@ const MegaMenu = ({category, ...otherProps}) => {
                     )}
                 </MenuList>
             </Grid>
-            <Grid container item md={3} justify='center'>
+            <Grid container item md={4} lg={3} justify='center'>
                 {categoryList.slice(0, 4).map(category => (
                     <Grid container item direction='column' md={6} className={classes.categoryItem}>
                         <Link color='inherit'>
