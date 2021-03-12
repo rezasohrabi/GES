@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
 import { addToCart } from '../../redux/Cart/cart.actions';
+import Gallery from './Gallery';
 
 const configSizeOptions = [
     {value: 'XS', label: 'X-Small'},
@@ -22,6 +23,13 @@ const configColourOptions = [
     {value: 'grey', label: 'Grey'},
     {value: 'blue', label: 'Blue'},
     {value: 'pink', label: 'Pink'},    
+];
+
+const productImages = [
+    {name: 'Babygrows & Sleepsuits', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/330902.jpg?X56'},
+    {name: 'Bodysuits & Vests', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/939963.jpg?X56'},
+    {name: 'Coats & Jackets', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/960757.jpg?X56'},
+    {name: 'Jeans', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/187325.jpg?X56'},
 ];
 
 const useStyles = makeStyles( (theme) => ({
@@ -86,10 +94,7 @@ const ProductDetailPanel = (props) => {
         flexDirection='column'
         >
             <Grid  className={classes.titleWrapper}>
-                <img 
-                className={classes.avatar}
-                src={productThumbnail}
-                alt={productName} />
+                <Gallery images={productImages}/>
                 <Grid>
                     <Typography
                     variant='h6'>{productName}</Typography>
