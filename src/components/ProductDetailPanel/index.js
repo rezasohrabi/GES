@@ -1,9 +1,28 @@
-import React, { useEffect } from 'react';
-import { Box, Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Divider, Grid, makeStyles, Typography, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
 import { addToCart } from '../../redux/Cart/cart.actions';
+
+const configSizeOptions = [
+    {value: 'XS', label: 'X-Small'},
+    {value: 'S', label: 'Small'},
+    {value: 'M', label: 'Medium'},
+    {value: 'L', label: 'Large'},
+    {value: 'XL', label: 'X-Large'},
+    {value: '2XL', label: 'XX-Large'},
+];
+
+const configColourOptions = [
+    {value: 'white', label: 'White'},
+    {value: 'black', label: 'Black'},
+    {value: 'red', label: 'Red'},
+    {value: 'green', label: 'Green'},
+    {value: 'grey', label: 'Grey'},
+    {value: 'blue', label: 'Blue'},
+    {value: 'pink', label: 'Pink'},    
+];
 
 const useStyles = makeStyles( (theme) => ({
     avatar: {
@@ -25,6 +44,8 @@ const ProductDetailPanel = (props) => {
     const { product } = useSelector(mapState);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [productSize, setProductSize] = useState('');
+    const [productColour, setProductColour] = useState('');
 
     const {
         productName,
@@ -71,11 +92,38 @@ const ProductDetailPanel = (props) => {
                 alt={productName} />
                 <Grid>
                     <Typography
-                    variant='h4'>{productName}</Typography>
-                    <br />
+                    variant='h6'>{productName}</Typography>
                     <Typography
                     variant='h6'
                     color='primary'>${productPrice}</Typography>
+                    <FormControl>
+                        <InputLabel shrink id='productSizeLabel'>Size</InputLabel>
+                        <Select
+                        labelId='productSizeLabel'
+                        value={productSize}
+                        displayEmpty
+                        onChange={e => setProductSize(e.target.value)}
+                        >
+                            <MenuItem value=''>Select Size</MenuItem>
+                            {configSizeOptions.map((opt, index) => (
+                                <MenuItem key={index} value={opt.value}>{opt.label}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl>
+                        <InputLabel shrink id='productColourLabel'>Colour</InputLabel>
+                        <Select
+                        labelId='productColourLabel'
+                        value={productColour}
+                        displayEmpty
+                        onChange={e => setProductColour(e.target.value)}
+                        >
+                            <MenuItem value=''>Select Colour</MenuItem>
+                            {configColourOptions.map((opt, index) => (
+                                <MenuItem key={index} value={opt.value}>{opt.label}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <Button
                     variant='contained'
                     color='primary'
