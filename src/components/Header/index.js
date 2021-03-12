@@ -9,6 +9,7 @@ import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import SearchField from './../../components/FormPanel/SearchField';
 import { signOutUserStart } from '../../redux/User/user.actions';
 import { openMobileMenu } from './../../redux/App/app.actions'
+import MegaMenu from './MegaMenu';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -40,6 +41,14 @@ const useStyles = makeStyles((theme) => ({
     list: {
        flexDirection: 'column', 
        width: '100%',
+    },
+    menuWrapper: {
+        position: 'relative',
+    },
+    menuButton: {
+        '&:hover + *': {
+            display: 'flex',
+        },
     },
     mx: {
         margin: theme.spacing(0, 2),
@@ -179,22 +188,37 @@ const Header = props => {
                     </IconButton>
                 </Grid>
                 {sectionMobile}
-                <Grid container item className={classes.sectionDesktop}>
-                    <Button component={RouterLink} to='/products/men' color='inherit'>
-                        Men
-                    </Button>
-                    <Button component={RouterLink} to='/products/women' color='inherit'>
-                        Women
-                    </Button>
-                    <Button component={RouterLink} to='/products/boys' color='inherit'>
-                        Boys
-                    </Button>
-                    <Button component={RouterLink} to='/products/girls' color='inherit'>
-                        Girls
-                    </Button>
-                    <Button component={RouterLink} to='/products/baby' color='inherit'>
-                        Baby
-                    </Button>
+                <Grid container item className={clsx(classes.menuWrapper, classes.sectionDesktop)}>
+                    <div>
+                        <Button component={RouterLink} to='/products/men' color='inherit' className={classes.menuButton}>
+                            Men
+                        </Button>
+                        <MegaMenu category='men'/>
+                    </div>
+                    <div>
+                        <Button component={RouterLink} to='/products/women' color='inherit' className={classes.menuButton}>
+                            Women
+                        </Button>
+                        <MegaMenu category='women' />
+                    </div>
+                    <div>
+                        <Button component={RouterLink} to='/products/boys' color='inherit' className={classes.menuButton}>
+                            Boys
+                        </Button>
+                        <MegaMenu category='boys' />
+                    </div>
+                    <div>
+                        <Button component={RouterLink} to='/products/girls' color='inherit' className={classes.menuButton}>
+                            Girls
+                        </Button>
+                        <MegaMenu category='girls' />
+                    </div>
+                    <div>
+                        <Button component={RouterLink} to='/products/baby' color='inherit' className={classes.menuButton}>
+                            Baby
+                        </Button>
+                        <MegaMenu category='baby' />
+                    </div>
                 </Grid>
                 
             </Toolbar>
