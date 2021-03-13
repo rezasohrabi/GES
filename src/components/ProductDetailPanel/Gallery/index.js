@@ -4,31 +4,36 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 'auto',
-        marginRight: theme.spacing(4),
     },
     imageWrapper: {
-        marginRight: theme.spacing(2),
-        width: 'auto',
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'row',
+        flexDirection: 'row',
+        [theme.breakpoints.up('sm')]: {
+            flexDirection: 'column',
+            width: 'auto',
         },
     },
     imageBtn: {
-        width: '50px',
-        height: '60px',
-        border: '2px solid #eee',
+        width: '70px',
+        height: '85px',
+        border: '1px solid #eee',
         borderRadius: theme.shape.borderRadius,
         padding: theme.spacing(1),
         marginBottom: theme.spacing(1),
         cursor: 'pointer',
+        marginRight: theme.spacing(1),
+        [theme.breakpoints.up('sm')]: {
+            marginRight: theme.spacing(3),
+        },
     },
     activeImageBtn: {
         borderColor: theme.palette.primary.light,
         cursor: 'auto',
     },
     activeImage: {
-        width: '20rem',
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '22rem',
+        },
     },
 }));
 const Gallery = ({images, ...otherProps}) => {
@@ -36,7 +41,7 @@ const Gallery = ({images, ...otherProps}) => {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
         <Grid container item direction='row' className={classes.root}>
-            <Grid container direction='column' className={classes.imageWrapper}>
+            <Grid container className={classes.imageWrapper}>
                 {images.map((img, index) => (
                     <img key={index} 
                     src={img.image} 
@@ -45,9 +50,7 @@ const Gallery = ({images, ...otherProps}) => {
                     />
                 ))}
             </Grid>
-            <Grid>
-                <img src={images[activeIndex].image} className={classes.activeImage} />
-            </Grid>
+            <img src={images[activeIndex].image} className={classes.activeImage} />
         </Grid>
     )
 };
