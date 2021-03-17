@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from './../../../redux/Cart/cart.actions'
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        alignItems: 'stretch',
+    },
     card: {
         flexGrow: 1,
         margin: theme.spacing(2),
@@ -12,8 +15,11 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
         height: '0',
-        paddingTop: '56.25%',
+        paddingTop: '100%',
         backgroundSize: 'contain',
+    },
+    mb1: {
+        marginBottom: theme.spacing(1),
     },
 }));
 
@@ -64,12 +70,14 @@ const ProductItem = product => {
                         <Typography 
                         variant='body1' 
                         color='textPrimary' 
+                        className={classes.mb1}
                         component='p'>{productName}</Typography>
                     </Link>
                     <Typography
                     variant='subtitle1'
                     color='primary'
-                    >{productPrice} $</Typography>
+                    className={classes.mb1}
+                    >${productPrice}</Typography>
                     <Button
                     variant='outlined'
                     color='primary'

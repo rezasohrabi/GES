@@ -18,7 +18,7 @@ const useStyles = makeStyles( (theme) => ({
     title: {
         marginRight: theme.spacing(1),
         [theme.breakpoints.up('sm')]: {
-            marginRight: theme.spacing(5),
+            marginRight: theme.spacing(2),
         },
     },
     button: {
@@ -27,6 +27,9 @@ const useStyles = makeStyles( (theme) => ({
     },
     borderTransparent: {
         border: '1px solid transparent',
+    },
+    sortBy: {
+        marginRight: theme.spacing(1),
     },
 }));
 
@@ -76,6 +79,7 @@ const ProductsSortsPanel = ({title}) => {
                 variant='body1'
                 color='inherit'
                 noWrap
+                className={classes.sortBy}
                 >Sort By:</Typography>
                 {sorts.map(sort => {
                     const { index, name} = sort;
