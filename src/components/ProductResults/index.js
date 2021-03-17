@@ -94,7 +94,7 @@ const ProductResults = props => {
             <Grid container item xs={12} sm={4} md={3}>
                 <ProductsFiltersPanel />
             </Grid>
-            <Grid container item xs={12} sm={8} md={9} alignItems='flex-start'>
+            <Grid container item xs={12} sm={8} md={9}>
                 {data.length < 1 && 
                 <Card className={clsx(classes.title, classes.m2)}>
                     <Typography className={classes.m2} variant='body1' color='textSecondary'>Item not found.</Typography>

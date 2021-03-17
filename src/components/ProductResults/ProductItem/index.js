@@ -6,13 +6,11 @@ import { addToCart } from './../../../redux/Cart/cart.actions'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        alignItems: 'stretch',
     },
     card: {
         flexGrow: 1,
         margin: theme.spacing(2),
         padding: theme.spacing(2),
-        alignItems: 'stretch',
     },
     media: {
         height: '0',
