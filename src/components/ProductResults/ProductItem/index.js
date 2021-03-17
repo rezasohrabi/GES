@@ -9,11 +9,15 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         margin: theme.spacing(2),
         padding: theme.spacing(2),
+        alignItems: 'stretch',
     },
     media: {
         height: '0',
-        paddingTop: '56.25%',
+        paddingTop: '100%',
         backgroundSize: 'contain',
+    },
+    mb1: {
+        marginBottom: theme.spacing(1),
     },
 }));
 
@@ -64,12 +68,14 @@ const ProductItem = product => {
                         <Typography 
                         variant='body1' 
                         color='textPrimary' 
+                        className={classes.mb1}
                         component='p'>{productName}</Typography>
                     </Link>
                     <Typography
                     variant='subtitle1'
                     color='primary'
-                    >{productPrice} $</Typography>
+                    className={classes.mb1}
+                    >${productPrice}</Typography>
                     <Button
                     variant='outlined'
                     color='primary'
