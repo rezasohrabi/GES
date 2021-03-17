@@ -51,6 +51,17 @@ const HeroHeader = (props) => {
         <Grid container className={classes.root}>
             <Grid container item>
                 <MainSlider />
+                <Grid container className={classes.catWrapper} spacing={3}>
+                    <Grid container item xs={12} md={4}>
+                        <CategoryCard src={WomanImage} title='River Island style updates'/>
+                    </Grid>
+                    <Grid container item xs={12} md={4}>
+                        <CategoryCard src={ManImage} title='Light layers for spring'/>
+                    </Grid>
+                    <Grid container item xs={12} md={4}>
+                        <CategoryCard src={WomanImage} title='New season Lipsy'/>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     )
