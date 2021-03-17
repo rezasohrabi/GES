@@ -9,7 +9,8 @@ import {
     makeStyles, 
     Typography, 
     TableBody, 
-    Button
+    Button,
+    Card
     } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -24,6 +25,9 @@ const useStyles = makeStyles( (theme) => ({
     },
     checkoutWrapper: {
         marginTop: theme.spacing(8),
+    },
+    empty: {
+        padding: theme.spacing(4),
     },
 }));
 
@@ -44,7 +48,7 @@ const Checkout = props => {
                 <Typography
                 key={1} 
                 className={classes.title}
-                variant='h4' 
+                variant='h5' 
                 >Checkout Cart</Typography>,
                 <TableContainer key={2} component={Paper}>
                     <Table aria-label='checkout table'>
@@ -85,9 +89,16 @@ const Checkout = props => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            ] : <Typography
-                variant='h5'
-                >Your cart is empty</Typography>}
+            ] : (
+                <Container maxWidth='md'>
+                    <Card className={classes.empty}>
+                        <Typography
+                        variant='h5'
+                        color='textSecondary'
+                        >Your cart is empty</Typography>
+                    </Card>
+                </Container>
+            )}
         </Container>
     )
 }
