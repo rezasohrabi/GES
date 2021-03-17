@@ -62,6 +62,9 @@ const HeroHeader = (props) => {
                         <CategoryCard src={WomanImage} title='New season Lipsy'/>
                     </Grid>
                 </Grid>
+                <MultiCarousel products={data} title={'New Session Women\'s'}/>
+                <MultiCarousel products={data} title={'New Session Men\'s'}/>
+                <MultiCarousel products={data} title={'New Session girls\''}/>
             </Grid>
         </Grid>
     )
