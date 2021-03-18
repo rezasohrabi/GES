@@ -14,7 +14,7 @@ import {
     Typography, 
     } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategoryStart, fetchCategoriesStart } from './../../redux/Category/category.actions';
+import { addCategoryStart, removeCategoryStart, fetchCategoriesStart } from './../../redux/Category/category.actions';
 import CategoryList from './CategoryList';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +61,12 @@ const Category = props => {
             })
         );
         resetForm();
+    };
+
+    const handleRemove = (categoryId) => {
+        dispatch(
+            removeCategoryStart(categoryId)
+        );
     };
 
     const resetForm = () => {
@@ -125,6 +131,7 @@ const Category = props => {
                 {categories.length > 0 ? 
                     <CategoryList 
                     categories={categories}
+                    onRemove={handleRemove}
                     />
                 : 
                     <Typography variant='h5' color='textSecondary'>No Category Was Found, Please Add First Category</Typography>

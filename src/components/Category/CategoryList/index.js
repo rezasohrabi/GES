@@ -1,10 +1,12 @@
 import { 
+    IconButton,
     Table, 
     TableBody, 
     TableCell, 
     TableHead, 
     TableRow 
     } from '@material-ui/core';
+import { Close, Remove } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -14,7 +16,7 @@ const StyledImage = styled.img`
 
 
 
-const CategoryList = ({categories, ...otherProps}) => {
+const CategoryList = ({categories, onRemove, ...otherProps}) => {
     return (
         <Table>
             <TableHead>
@@ -28,22 +30,33 @@ const CategoryList = ({categories, ...otherProps}) => {
                     <TableCell>
                         Menu
                     </TableCell>
+                    <TableCell>
+                        Remove
+                    </TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                {categories.map(category => (
+                {categories.map(category => {
+                    const { categoryId, categoryName, categoryIamge, categoryMenu } = category;
+                    return (
                     <TableRow>
                         <TableCell>
-                            <StyledImage src={category.categoryIamge} alt={category.categoryName} />
+                            <StyledImage src={categoryIamge} alt={categoryName} />
                         </TableCell>
                         <TableCell>
-                            {category.categoryName}
+                            {categoryName}
                         </TableCell>
                         <TableCell>
-                            {category.categoryMenu}
+                            {categoryMenu}
+                        </TableCell>
+                        <TableCell>
+                            <IconButton color='secondary' onClick={e => onRemove(categoryId)}>
+                                <Close />
+                            </IconButton>
                         </TableCell>
                     </TableRow>
-                ))}
+                    )}
+                )}
             </TableBody>
         </Table>
     );

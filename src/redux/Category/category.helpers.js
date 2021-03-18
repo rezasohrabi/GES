@@ -19,11 +19,30 @@ export const handleFetchCategories = () => {
         db.collection('categories')
         .get()
         .then(snapshot => {
-            const categories = snapshot.docs.map(doc => doc.data())
+            const categories = snapshot.docs.map(doc => {
+                return {
+                    ...doc.data(),
+                    categoryId: doc.id,
+                };
+            });
             resolve(categories);
         })
         .catch((err) => {
             reject(err);
         })
     })
+}
+
+export const handleRemoveCategory = categoryId => {
+    return new Promise((resolve, reject) => {
+        db.collection('categories')
+        .doc(categoryId)
+        .delete()
+        .then(() => {
+            resolve();
+        })
+        .catch((err) => {
+            reject(err);
+        })
+    });
 }

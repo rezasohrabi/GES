@@ -2,7 +2,22 @@ import {all, call, put, takeLatest} from 'redux-saga/effects';
 import { auth } from '../../firebase/utils';
 import categoryTypes from './../Category/category.types';
 import { fetchCategoriesStart, setCategories } from './category.actions';
-import { handleAddCategory, handleFetchCategories } from './category.helpers';
+import { handleAddCategory, handleFetchCategories, handleRemoveCategory } from './category.helpers';
+
+export function* removeCategory({payload}) {
+    try{
+        yield handleRemoveCategory(payload);
+        yield put(
+            fetchCategoriesStart()
+        );
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+export function* onRemoveCategory() {
+    yield takeLatest(categoryTypes.REMOVE_CATEGORY_START, removeCategory);
+}
 
 export function* fetchCategories() {
     try {
@@ -42,6 +57,7 @@ export function* onAddCategoryStart() {
 export default function* categorySagas() {
     yield all([
         call(onAddCategoryStart),
-        call(onFetchCategoriesStart)
+        call(onFetchCategoriesStart),
+        call(onRemoveCategory),
     ]);
 };
