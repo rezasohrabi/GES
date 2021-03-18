@@ -1,5 +1,7 @@
 const categoryTypes = {
     ADD_CATEGORY_START: 'ADD_CATEGORY_START',
+    FETCH_CATEGORIES_START: 'FETCH_CATEGORIES_START',
+    SET_CATEGORIES: 'SET_CATEGORIES', 
 };
 
 export default categoryTypes;

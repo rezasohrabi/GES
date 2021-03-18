@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
     Button,
     Card, 
@@ -12,8 +12,8 @@ import {
     Select, 
     TextField, 
     } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { addCategoryStart } from './../../redux/Category/category.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategoryStart, fetchCategoriesStart } from './../../redux/Category/category.actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,11 +30,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const mapState = ({categoryData}) => ({
+    categories: categoryData.categories,
+});
+
 const Category = props => {
     const [categoryName, setCategoryName] = useState('');
     const [categoryIamge, setCategoryImage] = useState('');
     const [categoryMenu, setCategoryMenu] = useState('');
     const dispatch = useDispatch();
+    const { categories } = useSelector(mapState);
+
+    useEffect(() => {
+        dispatch(
+            fetchCategoriesStart()
+        );
+    }, []);
 
     const classes = useStyles();
 

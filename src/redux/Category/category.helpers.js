@@ -13,3 +13,17 @@ export const handleAddCategory = category => {
         });
     });
 };
+
+export const handleFetchCategories = () => {
+    return new Promise((resolve, reject) => {
+        db.collection('categories')
+        .get()
+        .then(snapshot => {
+            const categories = snapshot.docs.map(doc => doc.data())
+            resolve(categories);
+        })
+        .catch((err) => {
+            reject(err);
+        })
+    })
+}
