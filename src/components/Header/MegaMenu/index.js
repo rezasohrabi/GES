@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create(['all'], {
             duration: theme.transitions.duration.standard,
         }),
+        boxShadow: theme.shadows[3],
         '&:hover': {
             display: 'flex',
         }
