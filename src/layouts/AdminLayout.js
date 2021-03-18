@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Divider, Grid, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
-import { AccountCircle, Home, ExitToApp } from '@material-ui/icons/';
+import { AccountCircle, Home, ExitToApp, Category } from '@material-ui/icons/';
 import Header  from './../components/Header'
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,6 +50,15 @@ const AdminLayout = props => {
                             <Home />
                         </ListItemIcon>
                         <ListItemText primary='Home' />
+                    </ListItem>
+                    <ListItem 
+                    button
+                    component={RouterLink}
+                    to='/admin/category'>
+                        <ListItemIcon>
+                            <Category />
+                        </ListItemIcon>
+                        <ListItemText primary='Category' />
                     </ListItem>
                     <ListItem 
                     button 

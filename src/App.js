@@ -20,6 +20,7 @@ import Search from './pages/Search';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
+import Categories from './pages/Categories';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -58,12 +59,19 @@ const App = props => {
               </DashboardLayout>
             </WithAuth>
           )} />
-          <Route path='/admin' render={ () => (
+          <Route exact path='/admin' render={ () => (
             <WithAdminAuth>
               <AdminLayout>
                 <Admin />
               </AdminLayout>
             </WithAdminAuth> 
+          )} />
+          <Route path='/admin/category' render={ () => (
+            <WithAdminAuth>
+              <AdminLayout>
+                <Categories />
+              </AdminLayout>
+            </WithAdminAuth>
           )} />
           <Route exact path='/products' render={ () => (
             <MainLayout>
