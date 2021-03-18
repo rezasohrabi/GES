@@ -5,12 +5,14 @@ import userReducer from './User/user.reducer';
 import productReducer from './Products/products.reducer';
 import cartReducer from './Cart/cart.reducer';
 import appReducer from './App/app.reducer';
+import categoryReducer from './Category/category.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
     productsData: productReducer,
     cartData: cartReducer,
     appData: appReducer,
+    categoryData: categoryReducer,
 });
 
 const configStorage = {

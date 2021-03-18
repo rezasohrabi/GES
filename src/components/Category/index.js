@@ -12,6 +12,8 @@ import {
     Select, 
     TextField, 
     } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { addCategoryStart } from './../../redux/Category/category.actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,12 +34,26 @@ const Category = props => {
     const [categoryName, setCategoryName] = useState('');
     const [categoryIamge, setCategoryImage] = useState('');
     const [categoryMenu, setCategoryMenu] = useState('');
+    const dispatch = useDispatch();
 
     const classes = useStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    }
+        dispatch(
+            addCategoryStart({
+                categoryName,
+                categoryIamge,
+                categoryMenu,
+            })
+        );
+    };
+
+    const resetForm = () => {
+        setCategoryName('');
+        setCategoryImage('');
+        setCategoryMenu('');
+    };
 
     return (
             <Card className={classes.root}>
