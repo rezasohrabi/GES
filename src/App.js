@@ -21,6 +21,7 @@ import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Categories from './pages/Categories';
+import ProductCategories from './pages/ProductCategories';
 
 const App = props => {
   const  dispatch = useDispatch();
@@ -80,7 +81,7 @@ const App = props => {
           )} />
           <Route path='/products/:filterType' render={ () => (
             <MainLayout>
-              <Search />
+              <ProductCategories />
             </MainLayout>
           )} />
           <Route exact path='/product/:productId' render={ () => (
