@@ -4,6 +4,7 @@ import { Button, Card, makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
+        width: '100%',
     },
     image: {
         width: '100%',
