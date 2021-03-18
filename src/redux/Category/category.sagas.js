@@ -1,7 +1,7 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import { auth } from '../../firebase/utils';
 import categoryTypes from './../Category/category.types';
-import { setCategories } from './category.actions';
+import { fetchCategoriesStart, setCategories } from './category.actions';
 import { handleAddCategory, handleFetchCategories } from './category.helpers';
 
 export function* fetchCategories() {
@@ -27,6 +27,9 @@ export function* addCategory({payload}) {
             adminUserUid: auth.currentUser.uid,
             createdDate: timeStamp,
         });
+        yield put(
+            fetchCategoriesStart()
+        );
     } catch(err) {
         console.error(err);
     }

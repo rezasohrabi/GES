@@ -10,10 +10,12 @@ import {
     makeStyles, 
     MenuItem, 
     Select, 
-    TextField, 
+    TextField,
+    Typography, 
     } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryStart, fetchCategoriesStart } from './../../redux/Category/category.actions';
+import CategoryList from './CategoryList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,16 +60,16 @@ const Category = props => {
                 categoryMenu,
             })
         );
+        resetForm();
     };
 
     const resetForm = () => {
         setCategoryName('');
         setCategoryImage('');
-        setCategoryMenu('');
     };
 
-    return (
-            <Card className={classes.root}>
+    return [
+            <Card key={0} className={classes.root}>
                 <CardHeader
                 title='Create New Category'
                 />
@@ -118,8 +120,18 @@ const Category = props => {
                         </Grid>
                     </form>
                 </CardContent>
+            </Card>,
+            <Card key={1} className={classes.root}>
+                {categories.length > 0 ? 
+                    <CategoryList 
+                    categories={categories}
+                    />
+                : 
+                    <Typography variant='h5' color='textSecondary'>No Category Was Found, Please Add First Category</Typography>
+                }
+                
             </Card>
-    )
+    ]
 }
 
 export default Category;
