@@ -39,18 +39,19 @@ const useStyles = makeStyles((theme) => ({
 const Gallery = ({images, ...otherProps}) => {
     const classes = useStyles();
     const [activeIndex, setActiveIndex] = useState(0);
+    if (!Array.isArray(images)) return null;
     return (
         <Grid container item direction='row' className={classes.root}>
             <Grid container className={classes.imageWrapper}>
                 {images.map((img, index) => (
                     <img key={index} 
-                    src={img.image} 
+                    src={img} 
                     className={clsx(classes.imageBtn, index === activeIndex && classes.activeImageBtn)} 
                     onClick={e => setActiveIndex(index)}
                     />
                 ))}
             </Grid>
-            <img src={images[activeIndex].image} className={classes.activeImage} />
+            <img src={images[activeIndex]} className={classes.activeImage} />
         </Grid>
     )
 };

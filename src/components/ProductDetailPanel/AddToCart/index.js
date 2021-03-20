@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Typography, FormControl, InputLabel, Select, MenuItem, makeStyles, Grid } from '@material-ui/core';
-
-const configSizeOptions = [
-    {value: 'XS', label: 'X-Small'},
-    {value: 'S', label: 'Small'},
-    {value: 'M', label: 'Medium'},
-    {value: 'L', label: 'Large'},
-    {value: 'XL', label: 'X-Large'},
-    {value: '2XL', label: 'XX-Large'},
-];
-
-const configColourOptions = [
-    {value: 'white', label: 'White'},
-    {value: 'black', label: 'Black'},
-    {value: 'red', label: 'Red'},
-    {value: 'green', label: 'Green'},
-    {value: 'grey', label: 'Grey'},
-    {value: 'blue', label: 'Blue'},
-    {value: 'pink', label: 'Pink'},    
-];
+import { 
+    Button, 
+    Typography, 
+    FormControl, 
+    InputLabel, 
+    Select, 
+    MenuItem, 
+    makeStyles, 
+    Grid 
+    } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,13 +32,17 @@ const AddToCart = ({
         productName,
         productPrice,
         productDesc,
+        productSize,
+        productColour,
     },
     handleAddToCart,
     ...otherProps
 }) => {
     const classes = useStyles();
-    const [productSize, setProductSize] = useState('');
-    const [productColour, setProductColour] = useState('');
+    const [prdtSize, setPrdtSize] = useState('');
+    const [prdtColour, setPrdtColour] = useState('');
+
+    if(!Array.isArray(productSize) || !Array.isArray(productColour || !productName)) return null;
 
     return (
         <Grid container item direction='column' className={classes.root}>
@@ -61,13 +55,13 @@ const AddToCart = ({
                 <InputLabel shrink id='productSizeLabel'>Size</InputLabel>
                 <Select
                 labelId='productSizeLabel'
-                value={productSize}
+                value={prdtSize}
                 displayEmpty
-                onChange={e => setProductSize(e.target.value)}
+                onChange={e => setPrdtSize(e.target.value)}
                 >
                     <MenuItem value=''>Select Size</MenuItem>
-                    {configSizeOptions.map((opt, index) => (
-                        <MenuItem key={index} value={opt.value}>{opt.label}</MenuItem>
+                    {productSize.map((opt, index) => (
+                        <MenuItem key={index} value={opt}>{opt}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
@@ -75,13 +69,13 @@ const AddToCart = ({
                 <InputLabel shrink id='productColourLabel'>Colour</InputLabel>
                 <Select
                 labelId='productColourLabel'
-                value={productColour}
+                value={prdtColour}
                 displayEmpty
-                onChange={e => setProductColour(e.target.value)}
+                onChange={e => setPrdtColour(e.target.value)}
                 >
                     <MenuItem value=''>Select Colour</MenuItem>
-                    {configColourOptions.map((opt, index) => (
-                        <MenuItem key={index} value={opt.value}>{opt.label}</MenuItem>
+                    {productColour.map((opt, index) => (
+                        <MenuItem key={index} value={opt}>{opt}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

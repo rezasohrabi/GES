@@ -23,7 +23,7 @@ const ProductListItem = props => {
                 <Avatar 
                 variant='square' 
                 alt={productName} 
-                src={productThumbnail}
+                src={productThumbnail[0]}
                 className={classes.avatar} 
             />
             </ListItemAvatar>

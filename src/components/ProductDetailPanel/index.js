@@ -8,13 +8,6 @@ import Gallery from './Gallery';
 import Comments from './Comments';
 import AddToCart from './AddToCart'
 
-const productImages = [
-    {name: 'Babygrows & Sleepsuits', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/330902.jpg?X56'},
-    {name: 'Bodysuits & Vests', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/939963.jpg?X56'},
-    {name: 'Coats & Jackets', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/960757.jpg?X56'},
-    {name: 'Jeans', image: 'https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/Search/224x336/187325.jpg?X56'},
-];
-
 const useStyles = makeStyles( (theme) => ({
     root: {
         margin: theme.spacing(3),
@@ -88,7 +81,7 @@ const ProductDetailPanel = (props) => {
         <Grid container item className={classes.root}>
             <Grid container item xs={12} md={6}>
                 <Card className={classes.card}>
-                    <Gallery images={productImages} />
+                    <Gallery images={productThumbnail} />
                 </Card>
             </Grid>
             <Grid container item xs={12} md={6}>
