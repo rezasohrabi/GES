@@ -29,66 +29,26 @@ const ProductResults = props => {
 
     const { products } = useSelector(mapState);
     const dispatch = useDispatch();
-    const { filterType } = useParams();
-    const history = useHistory();
+    const { filterType, category } = useParams();
     const classes = useStyles();
-    const { data, queryDoc, isLastPage } = products;
+    const { data } = products;
 
     useEffect(() => {
         dispatch(
-            fetchProductsStart({filterType})
+            fetchProductsStart({
+                filterType,
+                category,
+            })
         );
-   }, [filterType]);
-
-   const handleFilter = e => {
-    const nextFilter = e.target.value;
-    history.push(`/search/${nextFilter}`);
-   }
-
-   const handleLoadMore = () => {
-    dispatch(
-        fetchProductsStart({
-            filterType, 
-            startAfterDoc: queryDoc, 
-            persistProducts: data, 
-        })
-    );
-   }
-
-   const configLoadMore = {
-       onLoadMore: handleLoadMore
-   }
+   }, [filterType, category]);
 
     if (!Array.isArray(data)) return null;
 
     return (
         <Grid container item className={classes.productGrid}>
-            {/* <Grid container item xs={12} sm={12}>
-                <Card >
-                <FormControl>
-                    <InputLabel shrink id='productCategoryLabel'>Category</InputLabel>
-                    <Select
-                    labelId='productCategoryLabel'
-                    value={filterType === undefined? '' : filterType}
-                    displayEmpty
-                    onChange={handleFilter}
-                    >
-                        <MenuItem value=''>Show All</MenuItem>
-                        <MenuItem value='mens'>Mens</MenuItem>
-                        <MenuItem value='womens'>Womens</MenuItem>
-                    </Select>
-                </FormControl>
-                <Typography
-                align='right'
-                className={classes.title}
-                color='textSecondary' 
-                variant='body1'>{data.length} items found
-                </Typography>
-                </Card>
-            </Grid> */}
             <Grid container item xs={12}>
                 <ProductsSortsPanel 
-                title='this is title' 
+                title={category}
                 />
             </Grid>
             <Grid container item xs={12} sm={4} md={3}>

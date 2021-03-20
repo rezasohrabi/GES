@@ -28,7 +28,9 @@ const ProductItem = product => {
         productId,
         productThumbnail,
         productName,
-        productPrice
+        productPrice,
+        productMenu,
+        productCategory,
       } = product;
 
     const classes = useStyles();
@@ -58,14 +60,14 @@ const ProductItem = product => {
 
         className={classes.root}>
             <Card className={classes.card}>
-                <Link to={`/product/${productId}`}>
+                <Link to={`/products/${productMenu}/${productCategory}/${productId}`}>
                     <CardMedia 
                     className={classes.media}
-                    image={productThumbnail}
+                    image={productThumbnail[0]}
                     title={productName} />
                 </Link>
                 <CardContent>
-                    <Link to={`/product/${productId}`}>
+                    <Link to={`/products/${productMenu}/${productCategory}/${productId}`}>
                         <Typography 
                         variant='body1' 
                         color='textPrimary' 
