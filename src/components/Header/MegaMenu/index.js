@@ -60,7 +60,9 @@ const MegaMenu = ({category, ...otherProps}) => {
                     .filter(cate => cate.categoryMenu === category)
                     .map(filteredCate=> (
                         <MenuItem>
-                        <Typography variant='inherit'>{filteredCate.categoryName}</Typography>
+                        <Link to={`/products/${category}/${filteredCate.categoryName}`}>
+                            <Typography variant='inherit' color='textPrimary'>{filteredCate.categoryName}</Typography>
+                        </Link>
                         </MenuItem>
                     ))}
                 </MenuList>
@@ -76,13 +78,21 @@ const MegaMenu = ({category, ...otherProps}) => {
                     md={6} 
                     className={classes.categoryItem}
                     >
-                        <Link color='inherit'>
-                        <img src={filteredCate.categoryIamge} title={filteredCate.categoryName} className={classes.categoryImage}/>
-                        <Typography variant='inherit'>{filteredCate.categoryName}</Typography> 
+                        <Link to={`/products/${category}/${filteredCate.categoryName}`}>
+                            <img 
+                            src={filteredCate.categoryIamge} 
+                            title={filteredCate.categoryName} 
+                            className={classes.categoryImage}
+                            />
+                            <Typography 
+                            variant='inherit' 
+                            color='textPrimary'>
+                                {filteredCate.categoryName}
+                            </Typography> 
                         </Link>
                     </Grid>
                 ))}
-                <Button variant='outlined' color='primary'>The {category} Shop</Button>
+                <Button variant='outlined' component={Link} to={`/products/${category}`} color='primary'>The {category} Shop</Button>
             </Grid>
         </Grid>
     )
