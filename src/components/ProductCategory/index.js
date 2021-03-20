@@ -53,6 +53,7 @@ const ProductCategory = props => {
                     <CategoryCard 
                     title={filteredCate.categoryName}
                     src={filteredCate.categoryIamge}
+                    filter={filterType}
                     />
                 </Grid>
                 ))
