@@ -15,15 +15,8 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         background: theme.palette.background.paper,
         color: theme.palette.text.primary,
-        display: 'none',
         padding: theme.spacing(2),
-        transition: theme.transitions.create(['all'], {
-            duration: theme.transitions.duration.standard,
-        }),
         boxShadow: theme.shadows[3],
-        '&:hover': {
-            display: 'flex',
-        }
     },
     menuList: {
         display: 'flex',
@@ -40,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MegaMenu = ({category, ...otherProps}) => {
+const MegaMenu = ({menu, open, setMenuOpen, ...otherProps}) => {
     const { categories } = useSelector(mapState);
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -51,17 +44,25 @@ const MegaMenu = ({category, ...otherProps}) => {
         );
     }, []);
 
-    console.log(categories);
+    if(!open || open !== menu) return null;
     return (
         <Grid container item direction='row' className={classes.root}>
             <Grid container item md={8} lg={9}>
                 <MenuList className={classes.menuList}>
                     {categories
-                    .filter(cate => cate.categoryMenu === category)
+                    .filter(cate => cate.categoryMenu === menu)
                     .map(filteredCate=> (
                         <MenuItem>
-                        <Link to={`/products/${category}/${filteredCate.categoryName}`}>
-                            <Typography variant='inherit' color='textPrimary'>{filteredCate.categoryName}</Typography>
+                        <Link 
+                        to={`/products/${menu}/${filteredCate.categoryName}`}
+                        onClick={() => setMenuOpen(null)}
+                        >
+                            <Typography 
+                            variant='inherit' 
+                            color='textPrimary'
+                            >
+                                {filteredCate.categoryName}
+                            </Typography>
                         </Link>
                         </MenuItem>
                     ))}
@@ -69,7 +70,7 @@ const MegaMenu = ({category, ...otherProps}) => {
             </Grid>
             <Grid container item md={4} lg={3} justify='center'>
                 {categories
-                .filter(cate => cate.categoryMenu === category)
+                .filter(cate => cate.categoryMenu === menu)
                 .slice(0, 4).map(filteredCate => (
                     <Grid 
                     container 
@@ -78,7 +79,10 @@ const MegaMenu = ({category, ...otherProps}) => {
                     md={6} 
                     className={classes.categoryItem}
                     >
-                        <Link to={`/products/${category}/${filteredCate.categoryName}`}>
+                        <Link 
+                        to={`/products/${menu}/${filteredCate.categoryName}`} 
+                        onClick={() => setMenuOpen(null)}
+                        >
                             <img 
                             src={filteredCate.categoryIamge} 
                             title={filteredCate.categoryName} 
@@ -92,7 +96,14 @@ const MegaMenu = ({category, ...otherProps}) => {
                         </Link>
                     </Grid>
                 ))}
-                <Button variant='outlined' component={Link} to={`/products/${category}`} color='primary'>The {category} Shop</Button>
+                <Button 
+                variant='outlined' 
+                component={Link} 
+                to={`/products/${menu}`}
+                onClick={() => setMenuOpen(null)} 
+                color='primary'>
+                    The {menu} Shop
+                </Button>
             </Grid>
         </Grid>
     )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppBar, Button, IconButton, makeStyles, Link, Toolbar, Typography, Badge, Grid, List, ListItem, ListItemText, Divider, Collapse } from '@material-ui/core';
 import { Menu, ShoppingCartOutlined, AccountCircleOutlined } from '@material-ui/icons';
 import clsx from 'clsx';
@@ -65,6 +65,7 @@ const Header = props => {
     const { currentUser, totalCartItemsNum, isOpenMobileMenu } = useSelector(mapState);
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [menuOpen, setMenuOpen] = useState(null);
 
     const handleSignOut = () => {
         dispatch(
@@ -76,6 +77,14 @@ const Header = props => {
         dispatch(
             openMobileMenu()
         )
+    }
+
+    const handleToggleMenu = (nextMenu) => {
+        if(menuOpen === nextMenu) {
+            setMenuOpen(null)
+            return;
+        };
+        setMenuOpen(nextMenu);
     }
 
     const sectionMobile = (
@@ -189,36 +198,24 @@ const Header = props => {
                 </Grid>
                 {sectionMobile}
                 <Grid container item className={clsx(classes.menuWrapper, classes.sectionDesktop)}>
-                    <div>
-                        <Button component={RouterLink} to='/products/men' color='inherit' className={classes.menuButton}>
-                            Men
-                        </Button>
-                        <MegaMenu category='men'/>
-                    </div>
-                    <div>
-                        <Button component={RouterLink} to='/products/women' color='inherit' className={classes.menuButton}>
-                            Women
-                        </Button>
-                        <MegaMenu category='women' />
-                    </div>
-                    <div>
-                        <Button component={RouterLink} to='/products/boys' color='inherit' className={classes.menuButton}>
-                            Boys
-                        </Button>
-                        <MegaMenu category='boys' />
-                    </div>
-                    <div>
-                        <Button component={RouterLink} to='/products/girls' color='inherit' className={classes.menuButton}>
-                            Girls
-                        </Button>
-                        <MegaMenu category='girls' />
-                    </div>
-                    <div>
-                        <Button component={RouterLink} to='/products/baby' color='inherit' className={classes.menuButton}>
-                            Baby
-                        </Button>
-                        <MegaMenu category='baby' />
-                    </div>
+                    {['men', 'women', 'boys', 'girls', 'baby']
+                    .map(menu =>  (
+                        <div>
+                            <Button 
+                            color='inherit'
+                            onClick={() => handleToggleMenu(menu)} 
+                            className={classes.menuButton}
+                            >
+                                {menu}
+                            </Button>
+                            <MegaMenu
+                            open={menuOpen}
+                            menu={menu}
+                            setMenuOpen={setMenuOpen}
+                            />
+                        </div>
+                    ))
+                    }
                 </Grid>
                 
             </Toolbar>
