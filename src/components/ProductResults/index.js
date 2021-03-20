@@ -47,8 +47,6 @@ const ProductResults = props => {
         };
    }, [filterType, category]);
 
-    if (!Array.isArray(data)) return null;
-
     return (
         <Grid container item className={classes.productGrid}>
             <Grid container item xs={12}>
@@ -60,12 +58,12 @@ const ProductResults = props => {
                 <ProductsFiltersPanel />
             </Grid>
             <Grid container item xs={12} sm={8} md={9}>
-                {data.length < 1 && 
+                {(!Array.isArray(data) || data.length < 1) && 
                 <Card className={clsx(classes.title, classes.m2)}>
                     <Typography className={classes.m2} variant='body1' color='textSecondary'>Item not found.</Typography>
                 </Card>
                 }
-                {data.map((product, index) => {
+                {data && data.map((product, index) => {
                     const { 
                         productName,
                         productThumbnail,
