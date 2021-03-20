@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, Select, InputLabel, MenuItem, FormControl, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchProductsStart } from '../../redux/Products/products.actions';
+import { fetchProductsStart, setProducts } from '../../redux/Products/products.actions';
 import ProductItem from './ProductItem';
 import Paginator from '../Paginator';
 import ProductsFiltersPanel from './ProductsFiltersPanel';
@@ -40,6 +40,11 @@ const ProductResults = props => {
                 category,
             })
         );
+        return () => {
+            dispatch(
+                setProducts({})
+            );
+        };
    }, [filterType, category]);
 
     if (!Array.isArray(data)) return null;
