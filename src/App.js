@@ -74,17 +74,17 @@ const App = props => {
               </AdminLayout>
             </WithAdminAuth>
           )} />
-          <Route exact path='/products' render={ () => (
+          <Route exact path='/products/:filterType/:category' render={ () => (
             <MainLayout>
               <Search />
             </MainLayout>
           )} />
-          <Route path='/products/:filterType' render={ () => (
+          <Route exact path='/products/:filterType' render={ () => (
             <MainLayout>
               <ProductCategories />
             </MainLayout>
           )} />
-          <Route exact path='/product/:productId' render={ () => (
+          <Route exact path='/products/:filterType/:category/:productId' render={ () => (
             <MainLayout>
               <ProductDetail />
             </MainLayout>

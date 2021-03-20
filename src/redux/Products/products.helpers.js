@@ -14,17 +14,17 @@ export const handleAddProduct = product => {
     });
 };
 
-export const handleFetchProducts = ({filterType, startAfterDoc, persistProducts=[]}) => {
+export const handleFetchProducts = ({filterType, startAfterDoc, persistProducts=[], category}) => {
     return new Promise( (resolve, reject) => {
-        const pageSize = 6;
-        let docs = db.collection('products').orderBy('createdDate', 'desc').limit(pageSize);
-        if(filterType) docs = docs.where('productCategory', '==', filterType);
-        if(startAfterDoc) docs = docs.startAfter(startAfterDoc);
+        const pageNum = 6;
+        let docs = db.collection('products').orderBy('createdDate', 'desc');
+        if(filterType) docs = docs.where('productMenu', '==', filterType);
+        if(category) docs = docs.where('productCategory', '==', category)
+        if(startAfterDoc) docs = docs.limit(pageNum).startAfter(startAfterDoc);
         docs
         .get()
         .then( snapshot => {
             const totalCount = snapshot.size;
-            console.log('total',totalCount)
 
             const data = [
                 ...persistProducts,

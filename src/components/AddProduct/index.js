@@ -60,8 +60,8 @@ const AddProduct = props => {
     const [productMenu, setProductMenu] = useState('');
     const [productCategory, setProductCategory] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
-    const [productPrice, setProductPrice] = useState(); 
-    const [productQuantity, setProductQuantity] = useState();
+    const [productPrice, setProductPrice] = useState(''); 
+    const [productQuantity, setProductQuantity] = useState('');
     const [productDesc, setProductDesc] = useState('');
     const [productBrand, setProductBrand] = useState('');
     const [productColour, setProductColour] = useState([]);
@@ -92,10 +92,15 @@ const AddProduct = props => {
 
     const resetForm = () => {
         setProductName('');
+        setProductMenu('');
         setProductCategory('');
         setProductThumbnail('');
-        setProductPrice();
+        setProductPrice('');
+        setProductQuantity('');
         setProductDesc('');
+        setProductBrand('');
+        setProductColour([]);
+        setProductSize([]);
     }
 
     return (
@@ -140,7 +145,8 @@ const AddProduct = props => {
                     <MenuItem value=''>Select Category</MenuItem>
                     {categories
                     .filter(cate => cate.categoryMenu === productMenu)
-                    .map(filteredCate => <MenuItem 
+                    .map((filteredCate, index) => <MenuItem
+                        key={index} 
                         value={filteredCate.categoryName}
                         >{filteredCate.categoryName}
                         </MenuItem>
@@ -153,11 +159,11 @@ const AddProduct = props => {
                 <Select
                 value={productBrand}
                 onChange={e => setProductBrand(e.target.value)}
-                required
                 >
                     <MenuItem value=''>Select Brand</MenuItem>
                     {configBrandItems
-                    .map(brand => <MenuItem 
+                    .map((brand,index) => <MenuItem
+                        key={index} 
                         value={brand.label}
                         >{brand.label}
                         </MenuItem>
@@ -175,7 +181,8 @@ const AddProduct = props => {
                 >
                     <MenuItem value=''>Select Available Colours</MenuItem>
                     {configColourItems
-                    .map(colour => <MenuItem 
+                    .map((colour, index) => <MenuItem 
+                        key={index}
                         value={colour.label}
                         >{colour.label}
                         </MenuItem>
@@ -193,7 +200,8 @@ const AddProduct = props => {
                 >
                     <MenuItem value=''>Select Available Sizes</MenuItem>
                     {configSizeItems
-                    .map(size => <MenuItem 
+                    .map((size, index) => <MenuItem
+                        key={index} 
                         value={size.label}
                         >{size.label}
                         </MenuItem>
