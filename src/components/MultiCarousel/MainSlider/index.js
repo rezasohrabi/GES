@@ -42,8 +42,8 @@ const MainSlider = props => {
     return (
         <Card className={classes.card}>
         <Carousel itemsToShow={1} showArrows={false} enableAutoPlay>
-            {configSlider.map(slider =>  (
-                <div className={classes.sliderWrapper}>
+            {configSlider.map((slider, index) =>  (
+                <div className={classes.sliderWrapper} key={index}>
                     <img  src={slider.src} className={classes.image}/>
                     <div className={classes.sliderInfo}>
                         <Typography variant='h5' color='inherit'>{slider.title}</Typography>

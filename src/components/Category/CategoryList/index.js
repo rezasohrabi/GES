@@ -39,7 +39,7 @@ const CategoryList = ({categories, onRemove, ...otherProps}) => {
                 {categories.map(category => {
                     const { categoryId, categoryName, categoryIamge, categoryMenu } = category;
                     return (
-                    <TableRow>
+                    <TableRow key={categoryId}>
                         <TableCell>
                             <StyledImage src={categoryIamge} alt={categoryName} />
                         </TableCell>

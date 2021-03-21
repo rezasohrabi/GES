@@ -200,7 +200,7 @@ const Header = props => {
                 <Grid container item className={clsx(classes.menuWrapper, classes.sectionDesktop)}>
                     {['men', 'women', 'boys', 'girls', 'baby']
                     .map(menu =>  (
-                        <div>
+                        <div key={menu}>
                             <Button 
                             color='inherit'
                             onClick={() => handleToggleMenu(menu)} 

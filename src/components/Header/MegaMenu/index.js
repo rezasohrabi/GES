@@ -52,7 +52,7 @@ const MegaMenu = ({menu, open, setMenuOpen, ...otherProps}) => {
                     {categories
                     .filter(cate => cate.categoryMenu === menu)
                     .map(filteredCate=> (
-                        <MenuItem>
+                        <MenuItem key={filteredCate.categoryName}>
                         <Link 
                         to={`/products/${menu}/${filteredCate.categoryName}`}
                         onClick={() => setMenuOpen(null)}
@@ -77,6 +77,7 @@ const MegaMenu = ({menu, open, setMenuOpen, ...otherProps}) => {
                     item 
                     direction='column' 
                     md={6} 
+                    key={filteredCate.categoryName}
                     className={classes.categoryItem}
                     >
                         <Link 

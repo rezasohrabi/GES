@@ -41,7 +41,7 @@ const ProductCategory = props => {
             </Typography>
             {categories
             .filter(cate => cate.categoryMenu === filterType)
-            .map(filteredCate => (
+            .map((filteredCate, index) => (
                 <Grid 
                 container 
                 item
@@ -49,6 +49,7 @@ const ProductCategory = props => {
                 sm={6}
                 md={3}
                 xl={2}
+                key={index}
                 >
                     <CategoryCard 
                     title={filteredCate.categoryName}
