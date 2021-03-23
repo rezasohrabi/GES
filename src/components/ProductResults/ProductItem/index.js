@@ -56,8 +56,6 @@ const ProductItem = product => {
         xs={12} 
         md={6}
         lg={4}
-        xl={3}
-
         className={classes.root}>
             <Card className={classes.card}>
                 <Link to={`/products/${productMenu}/${productCategory}/${productId}`}>

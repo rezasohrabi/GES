@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, makeStyles, Typography, Select, InputLabel, MenuItem, FormControl, Card } from '@material-ui/core';
+import { Grid, makeStyles, Typography, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchProductsStart, setProducts } from '../../redux/Products/products.actions';
 import ProductItem from './ProductItem';
 import Paginator from '../Paginator';
@@ -32,8 +32,14 @@ const ProductResults = props => {
     const { filterType, category } = useParams();
     const classes = useStyles();
     const { data } = products;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(6);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentProducts = data && data.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
+        setCurrentPage(1);
         dispatch(
             fetchProductsStart({
                 filterType,
@@ -63,7 +69,8 @@ const ProductResults = props => {
                     <Typography className={classes.m2} variant='body1' color='textSecondary'>Item not found.</Typography>
                 </Card>
                 }
-                {data && data.map((product, index) => {
+                {currentProducts && currentProducts
+                .map((product, index) => {
                     const { 
                         productName,
                         productThumbnail,
@@ -80,7 +87,13 @@ const ProductResults = props => {
                     return <ProductItem key={index} {...configProduct} />;
                 })}
             </Grid>
-            <Paginator card count={30} color='primary'/>
+            <Paginator 
+            card 
+            count={!data? 0 : Math.ceil(data.length  / itemsPerPage)} 
+            page={currentPage} 
+            color='primary' 
+            onChange={(e, num) => setCurrentPage(num)}
+            />
         </Grid>
     );
 };
