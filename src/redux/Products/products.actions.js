@@ -29,3 +29,8 @@ export const setProduct = product => ({
     type: productTypes.SET_PRODUCT,
     payload: product,
 })
+
+export const searchProducts = keyword => ({
+    type: productTypes.SEARCH_PRODUCTS,
+    payload: keyword,
+});

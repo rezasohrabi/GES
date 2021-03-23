@@ -40,9 +40,16 @@ const sorts = [
     {index: 3, name: 'Lowest Price'},
 ];
 
-const ProductsSortsPanel = ({title}) => {
+const ProductsSortsPanel = ({title, onSearch}) => {
     const classes = useStyles();
     const [sortIndex, setSortIndex] = useState(0);
+    const [keyword, setKeyword] = useState('');
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setKeyword(value);
+        onSearch(value);
+    }
 
     const handleSort = (e, index) => {
         setSortIndex(index);
@@ -66,6 +73,8 @@ const ProductsSortsPanel = ({title}) => {
                 </Typography>}
                 <SearchField 
                 placeholder='Search in results...'
+                value={keyword}
+                onChange={handleSearchChange}
                 />
             </Grid>
             <Grid 

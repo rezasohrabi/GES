@@ -5,6 +5,7 @@ const productTypes = {
     FETCH_PRODUCT_START: 'FETCH_PRODUCT_START',
     SET_PRODUCTS: 'SET_PRODUCTS',
     SET_PRODUCT: 'SET_PRODUCT',
+    SEARCH_PRODUCTS: 'SEARCH_PRODUCTS',
 };
 
 export default productTypes;

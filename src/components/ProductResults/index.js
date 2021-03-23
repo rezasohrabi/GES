@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProductsStart, setProducts } from '../../redux/Products/products.actions';
+import { fetchProductsStart, setProducts, searchProducts } from '../../redux/Products/products.actions';
 import ProductItem from './ProductItem';
 import Paginator from '../Paginator';
 import ProductsFiltersPanel from './ProductsFiltersPanel';
@@ -10,7 +10,7 @@ import ProductsSortsPanel from './ProductsSortsPanel';
 import clsx from 'clsx';
 
 const mapState = ({productsData}) => ({
-    products: productsData.products
+    products: productsData.filteredProducts,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -53,11 +53,19 @@ const ProductResults = props => {
         };
    }, [filterType, category]);
 
+   const handleSearch = (keyword) => {
+       console.log('keyword', keyword)
+        dispatch(
+            searchProducts(keyword)
+        );
+   }
+
     return (
         <Grid container item className={classes.productGrid}>
             <Grid container item xs={12}>
                 <ProductsSortsPanel 
                 title={category}
+                onSearch={handleSearch}
                 />
             </Grid>
             <Grid container item xs={12} sm={4} md={3}>
