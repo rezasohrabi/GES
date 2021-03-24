@@ -10,15 +10,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const RadioButtonPanel = ({radios, value, onChange, ...otherProps}) => {
+const RadioButtonPanel = ({radios, value, onChange, name, ...otherProps}) => {
     const classes = useStyles();
     return(
         <RadioGroup className={classes.radioGroup}  aria-label="radios" value={value} onChange={onChange}>
+            <FormControlLabel  
+            value={''} 
+            control={<Radio color='primary'/>} 
+            label={`All ${name}`}
+            />
             {radios.map((radio, index) => {
                 return <FormControlLabel key={index} 
-                        value={radio.value} 
+                        value={radio[0]} 
                         control={<Radio color='primary'/>} 
-                        label={radio.label} 
+                        label={`${radio[0]} (${radio[1]})`} 
                         />
             })}
         </RadioGroup>

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Grid, makeStyles, Typography, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 import { fetchProductsStart, setProducts, searchProducts } from '../../redux/Products/products.actions';
+import { selectFilters, selectProducts } from '../../redux/Products/Products.selectors';
 import ProductItem from './ProductItem';
 import Paginator from '../Paginator';
 import ProductsFiltersPanel from './ProductsFiltersPanel';
 import ProductsSortsPanel from './ProductsSortsPanel';
 import clsx from 'clsx';
 
-const mapState = ({productsData}) => ({
-    products: productsData.filteredProducts,
+const mapState = createStructuredSelector({
+    data: selectProducts,
+    filters: selectFilters,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -27,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductResults = props => {
 
-    const { products } = useSelector(mapState);
+    const { data, filters } = useSelector(mapState);
     const dispatch = useDispatch();
     const { filterType, category } = useParams();
     const classes = useStyles();
-    const { data } = products;
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(6);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -69,7 +71,7 @@ const ProductResults = props => {
                 />
             </Grid>
             <Grid container item xs={12} sm={4} md={3}>
-                <ProductsFiltersPanel />
+                <ProductsFiltersPanel filters={filters}/>
             </Grid>
             <Grid container item xs={12} sm={8} md={9}>
                 {(!Array.isArray(data) || data.length < 1) && 

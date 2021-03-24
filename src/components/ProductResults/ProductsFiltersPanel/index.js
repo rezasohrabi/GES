@@ -19,46 +19,19 @@ function priceRangeValueText(val) {
     return `${val}$`
 }
 
-const configColourRadios = [
-    {value: 'white', label: 'White'},
-    {value: 'black', label: 'Black'},
-    {value: 'red', label: 'Red'},
-    {value: 'green', label: 'Green'},
-    {value: 'grey', label: 'Grey'},
-    {value: 'blue', label: 'Blue'},
-    {value: 'pink', label: 'Pink'},    
-];
-
-const configSizeRadios = [
-    {value: 'XS', label: 'X-Small'},
-    {value: 'S', label: 'Small'},
-    {value: 'M', label: 'Medium'},
-    {value: 'L', label: 'Large'},
-    {value: 'XL', label: 'X-Large'},
-    {value: '2XL', label: 'XX-Large'},
-]
-
-const configBrandRadios = [
-    {value: 'nike', label: 'Nike'},
-    {value: 'adidas', label: 'Adidas'},
-    {value: 'levis', label: 'Levis'},
-    {value: 'gussi', label: 'Gucci'},
-    {value: 'poloRalph', label: 'Polo Ralph Lauren'},
-    {value: 'versace', label: 'Versace'},
-    {value: 'calvin', label: 'Calvin Klein'},
-    {value: 'american', label: 'American Eagle'},
-    {value: 'aeropostale', label: 'Aeropostale'},
-    {value: 'victoria', label: 'Abercrombie & Fitch'},
-    {value: 'puma', label: 'Puma'},
-    {value: 'vans', label: 'Vans'},
-    {value: 'louis', label: 'Louis Vuitton'},
-    {value: 'lacoste', label: 'Lacoste'},
-    {value: 'tommy', label: 'Tommy Hilfiger'},
-];
-
-const ProductsFiltersPanel = prosp => {
+const ProductsFiltersPanel = (
+{
+    filters: {
+        sizes,
+        colours,
+        brands,
+        prices,
+    }
+}) => {
+    const max = isFinite(Math.max(...prices))? Math.max(...prices) : 100;
+    const min = isFinite(Math.min(...prices))? Math.min(...prices) : 0;
     const [expended, setExpended] = useState(false);
-    const [priceRange, setPriceRange] = useState([50, 100]);
+    const [priceRange, setPriceRange] = useState([min, max]);
     const [colour, setColour] = useState('');
     const [size, setSize] = useState('');
     const [brand, setBrand] = useState('');
@@ -81,8 +54,9 @@ const ProductsFiltersPanel = prosp => {
                 <AccordionDetails>
                     <RadioButtonPanel
                     value={brand}
+                    name='brands'
                     onChange={event => setBrand(event.target.value)}
-                    radios={configBrandRadios}
+                    radios={Object.entries(brands)}
                     />
                 </AccordionDetails>
             </Accordion>
@@ -97,8 +71,9 @@ const ProductsFiltersPanel = prosp => {
                 <AccordionDetails>
                     <RadioButtonPanel
                     value={size}
+                    name='sizes'
                     onChange={event => setSize(event.target.value)}
-                    radios={configSizeRadios}
+                    radios={Object.entries(sizes)}
                     />
                 </AccordionDetails>
             </Accordion>
@@ -113,8 +88,9 @@ const ProductsFiltersPanel = prosp => {
                 <AccordionDetails>
                     <RadioButtonPanel 
                     value={colour} 
+                    name='colours'
                     onChange={event => setColour(event.target.value)}
-                    radios={configColourRadios}
+                    radios={Object.entries(colours)}
                     />
                 </AccordionDetails>
             </Accordion>
@@ -131,6 +107,10 @@ const ProductsFiltersPanel = prosp => {
                     value={priceRange}
                     onChange={(event, newValue) => setPriceRange(newValue)}
                     valueLabelDisplay="auto"
+                    marks={prices}
+                    min={min}
+                    max={max}
+                    step={5}
                     aria-labelledby="price-range-slider"
                     getAriaValueText={priceRangeValueText}
                     />  
