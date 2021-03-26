@@ -1,35 +1,9 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Avatar, Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
 import AddComment from '../AddComment';
-
-const comments = [
-    {
-        comment: `wanted an over sized sweatshirt to be long and comfy, and to cover my butt so i can wear leggings without old people getting triggered. Any smaller and I don't think it would have been long enough. Not too thick, just right for me.`,
-        url: 'https://www.amazon.com/avatar/default/amzn1.account.AHKZ33VBY2OZCHWSKYVHEVXDJDHQ?square=true&max_width=460',
-        colour: 'blue',
-        size: 'X-Large',
-        date: 'March 11, 2018',
-        author: 'AshleyC35',
-        verifiedPurchase: true,
-    },
-    {
-        comment: `wanted an over sized sweatshirt to be long and comfy, and to cover my butt so i can wear leggings without old people getting triggered. Any smaller and I don't think it would have been long enough. Not too thick, just right for me.`,
-        url: 'https://www.amazon.com/avatar/default/amzn1.account.AHKZ33VBY2OZCHWSKYVHEVXDJDHQ?square=true&max_width=460',
-        colour: 'blue',
-        size: 'X-Large',
-        date: 'March 11, 2018',
-        author: 'AshleyC35',
-        verifiedPurchase: true,
-    },
-    {
-        comment: `wanted an over sized sweatshirt to be long and comfy, and to cover my butt so i can wear leggings without old people getting triggered. Any smaller and I don't think it would have been long enough. Not too thick, just right for me.`,
-        url: 'https://www.amazon.com/avatar/default/amzn1.account.AGI5S4REUKNOHXAKFLEBHAXL7HVA?square=true&max_width=460',
-        date: 'March 11, 2018',
-        author: 'AshleyC35',
-        verifiedPurchase: false,
-    },
-    
-];
+import { fetchCommentsStart } from '../../../redux/Comments/comments.actions';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -43,12 +17,26 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const mapState = ({commentData}) => ({
+    comments: commentData.comments,
+});
+
 const Comments = (props) => {
+    const { productId } = useParams();
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const { comments } = useSelector(mapState);
+
+    useEffect(() => {
+        dispatch(
+            fetchCommentsStart(productId)
+        )
+    }, []);
+
     return(
         <>
         <Typography variant='h6' color='textPrimary' className={classes.title}>User Comments</Typography>
-        {comments.map((cmt, index) => {
+        {comments && comments.length > 0 && comments.map((cmt, index) => {
             const { comment, url, date, author, verifiedPurchase } = cmt;
             return (
             <Grid container item xs={12} key={index} className={classes.comment}>
@@ -65,6 +53,10 @@ const Comments = (props) => {
                 </Grid>
             </Grid>)
         })}
+        {comments && 
+        comments.length === 0 && 
+        <Typography variant='body1' color='textSecondary'>No Comment Was Found, Write First Comment</Typography>
+        }
         <AddComment />
         </>
     )

@@ -6,6 +6,7 @@ import productReducer from './Products/products.reducer';
 import cartReducer from './Cart/cart.reducer';
 import appReducer from './App/app.reducer';
 import categoryReducer from './Category/category.reducer';
+import commentsReducer from './Comments/comments.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
     cartData: cartReducer,
     appData: appReducer,
     categoryData: categoryReducer,
+    commentData: commentsReducer,
 });
 
 const configStorage = {
