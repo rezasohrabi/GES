@@ -34,6 +34,7 @@ const AddToCart = ({
         productDesc,
         productSize,
         productColour,
+        productQuantity,
     },
     handleAddToCart,
     ...otherProps
@@ -51,6 +52,15 @@ const AddToCart = ({
             <Typography
             variant='h6'
             color='primary'>${productPrice}</Typography>
+            {productQuantity == 0? 
+            <Typography
+            variant='subtitle1'
+            color='secondary'
+            className={classes.mb1}
+            >Out Of Stock</Typography>
+            :
+            (
+            <>
             <FormControl>
                 <InputLabel shrink id='productSizeLabel'>Size</InputLabel>
                 <Select
@@ -85,6 +95,9 @@ const AddToCart = ({
             className={classes.addButton}
             onClick={handleAddToCart}
             >Add To Cart</Button>
+            </>
+            )
+            }
             <div dangerouslySetInnerHTML={{ __html: productDesc}}/>
         </Grid>
     );

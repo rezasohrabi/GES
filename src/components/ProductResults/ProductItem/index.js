@@ -31,8 +31,9 @@ const ProductItem = product => {
         productPrice,
         productMenu,
         productCategory,
+        productQuantity
       } = product;
-
+    console.log(productQuantity)
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -77,11 +78,19 @@ const ProductItem = product => {
                     color='primary'
                     className={classes.mb1}
                     >${productPrice}</Typography>
+                    {productQuantity == 0? 
+                    <Typography
+                    variant='subtitle1'
+                    color='secondary'
+                    className={classes.mb1}
+                    >Out Of Stock</Typography>
+                    :
                     <Button
                     variant='outlined'
                     color='primary'
                     onClick={handleAddToCart}
                     size='small'>add to cart</Button>
+                    }
                 </CardContent>
             </Card>
         </Grid>
