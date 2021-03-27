@@ -51,54 +51,54 @@ const PaymentDetails = props => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const cardElement = elements.getElement('card');
+        // const cardElement = elements.getElement('card');
     
-        if (
-          !shippingAddress.line1 || !shippingAddress.city ||
-          !shippingAddress.state || !shippingAddress.postal_code ||
-          !shippingAddress.country || !billingAddress.line1 ||
-          !billingAddress.city || !billingAddress.state ||
-          !billingAddress.postal_code || !billingAddress.country ||
-          !recipientName || !nameOnCard
-        ) {
-          return;
-        }
+        // if (
+        //   !shippingAddress.line1 || !shippingAddress.city ||
+        //   !shippingAddress.state || !shippingAddress.postal_code ||
+        //   !shippingAddress.country || !billingAddress.line1 ||
+        //   !billingAddress.city || !billingAddress.state ||
+        //   !billingAddress.postal_code || !billingAddress.country ||
+        //   !recipientName || !nameOnCard
+        // ) {
+        //   return;
+        // }
     
-        apiInstance.post('/payments/create', {
-          amount: total * 100,
-          shipping: {
-            name: recipientName,
-            address: {
-              ...shippingAddress
-            }
-          }
-        }).then(({ data: clientSecret }) => {
+        // apiInstance.post('/payments/create', {
+        //   amount: total * 100,
+        //   shipping: {
+        //     name: recipientName,
+        //     address: {
+        //       ...shippingAddress
+        //     }
+        //   }
+        // }).then(({ data: clientSecret }) => {
     
-          stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-            billing_details: {
-              name: nameOnCard,
-              address: {
-                ...billingAddress
-              }
-            }
-          }).then(({ paymentMethod }) => {
+        //   stripe.createPaymentMethod({
+        //     type: 'card',
+        //     card: cardElement,
+        //     billing_details: {
+        //       name: nameOnCard,
+        //       address: {
+        //         ...billingAddress
+        //       }
+        //     }
+        //   }).then(({ paymentMethod }) => {
     
-            stripe.confirmCardPayment(clientSecret, {
-              payment_method: paymentMethod.id
-            })
-            .then(({ paymentIntent }) => {
-              dispatch(
-                clearCart()
-              )
-            });
+        //     stripe.confirmCardPayment(clientSecret, {
+        //       payment_method: paymentMethod.id
+        //     })
+        //     .then(({ paymentIntent }) => {
+        //       dispatch(
+        //         clearCart()
+        //       )
+        //     });
     
-          })
+        //   })
     
-        }).catch((error) => {
-            setErrors(['something went wrong, uable to connect stripe'])
-        });
+        // }).catch((error) => {
+        //     setErrors(['something went wrong, uable to connect stripe'])
+        // });
     
       };
 
