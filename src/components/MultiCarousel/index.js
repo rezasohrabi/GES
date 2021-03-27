@@ -1,6 +1,7 @@
 import React from 'react';
 import Carousel from 'react-elastic-carousel';
 import ProductItem from './ProductItem';
+import { Link as RouterLink } from 'react-router-dom';
 import { Button, Card, Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,14 +36,14 @@ const breakPoints = [
     { width: 1750, itemsToShow: 6 },
   ];
 
-const MultiCarousel = ({products, title, ...otherProps}) => {
+const MultiCarousel = ({products, filter, title, ...otherProps}) => {
   const classes = useStyles();
   if (!Array.isArray(products)) return null;
   return (
   <>
     <Grid container item justify='space-between' className={classes.grid}>
       <Typography variant='h6'>{title && title}</Typography>
-      <Button>See More</Button>
+      <Button component={RouterLink} to={`/products/${filter}/`}>See More</Button>
     </Grid>
     <Card className={classes.card}>
       <Carousel itemsToShow={4} breakPoints={breakPoints} className={classes.root} showEmptySlots={false} pagination={false}>

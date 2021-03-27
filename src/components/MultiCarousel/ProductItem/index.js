@@ -25,12 +25,14 @@ export default function Item(product) {
         productId,
         productThumbnail,
         productName,
-        productPrice
+        productPrice,
+        productCategory,
+        productMenu
       } = product;
     return (
         <StyledCard>
-          <StyledLink component={RouterLink} to={`/product/${productId}`} color='inherit'>
-            <StyledImage src={productThumbnail} alt={productName}/>
+          <StyledLink component={RouterLink} to={`/products/${productMenu}/${productCategory}/${productId}`} color='inherit'>
+            <StyledImage src={productThumbnail[0]} alt={productName}/>
             <Typography variant='body2'  noWrap>{productName}</Typography>
             <Typography variant='h6' color='primary'>${productPrice}</Typography>
           </StyledLink>

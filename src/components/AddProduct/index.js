@@ -133,6 +133,7 @@ const AddProduct = props => {
                     <MenuItem value='boys'>Boys</MenuItem>
                     <MenuItem value='girls'>Girls</MenuItem>
                     <MenuItem value='baby'>Baby</MenuItem>
+                    <MenuItem value='home'>Home</MenuItem>
                 </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
