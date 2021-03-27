@@ -49,7 +49,7 @@ const Comments = (props) => {
                         <Typography variant='caption' color='textSecondary'>Verified Purchase of {cmt.size} | {cmt.colour} </Typography>
                     }
                     <Typography variant='body2'>{comment} </Typography>
-                    <Typography variant='caption' color='textSecondary'>{date}</Typography>
+                    <Typography variant='caption' color='textSecondary'>{date.toDate().toString()}</Typography>
                 </Grid>
             </Grid>)
         })}

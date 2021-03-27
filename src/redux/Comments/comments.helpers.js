@@ -1,5 +1,19 @@
 import { db } from '../../firebase/utils';
 
+export const handleAddComment = comment => {
+    return new Promise( (resolve, reject) => {
+        db.collection('comments')
+        .doc()
+        .set(comment)
+        .then(() => {
+            resolve();
+        })
+        .catch(err => {
+            reject(err);
+        })
+    })
+} 
+
 export const handleFetchComments = (productId) => {
     return new Promise( (resolve, reject) => {
         db.collection('comments')
