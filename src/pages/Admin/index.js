@@ -22,7 +22,6 @@ const Admin = props => {
     const { data, queryDoc, isLastPage } = products;
 
     useEffect(() => {
-        console.log('product', data )
         dispatch(
             fetchProductsStart()
             );

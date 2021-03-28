@@ -4,19 +4,20 @@ import {
     TableBody, 
     TableCell, 
     TableHead, 
-    TableRow 
+    TableRow,
+    makeStyles, 
     } from '@material-ui/core';
 import { Close, Remove } from '@material-ui/icons';
 import React from 'react';
-import styled from 'styled-components';
 
-const StyledImage = styled.img`
-    height: 100px; 
-`
-
-
+const useStyles = makeStyles((theme) => ({
+    image: {
+        height: '100px',
+    }
+}));
 
 const CategoryList = ({categories, onRemove, ...otherProps}) => {
+    const classes = useStyles();
     return (
         <Table>
             <TableHead>
@@ -41,7 +42,7 @@ const CategoryList = ({categories, onRemove, ...otherProps}) => {
                     return (
                     <TableRow key={categoryId}>
                         <TableCell>
-                            <StyledImage src={categoryIamge} alt={categoryName} />
+                            <img className={classes.image} src={categoryIamge} alt={categoryName} />
                         </TableCell>
                         <TableCell>
                             {categoryName}

@@ -45,7 +45,7 @@ const CheckoutItem = cartItem => {
     return (
         <TableRow>
             <TableCell>
-                <img className={classes.image} src={productThumbnail} alt={productName} />
+                <img className={classes.image} src={productThumbnail[0]} alt={productName} />
             </TableCell>
             <TableCell>
                 {productName}

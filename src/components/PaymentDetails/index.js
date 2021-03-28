@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, TextField, Typography, InputLabel } from '@material-ui/core';
+import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import SelectCountry from '../SelectCountry';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { apiInstance } from '../../utils';
 import { createStructuredSelector } from 'reselect';
 import { selectCartTotalPrice } from './../../redux/Cart/cart.selectors'
-import { useDispatch, useSelector } from 'react-redux';
-import { clearCart } from '../../redux/Cart/cart.actions';
+import { useSelector } from 'react-redux';
 
 const initialAddressState = {
     line1: '',
@@ -22,9 +19,7 @@ const mapState = createStructuredSelector({
 });
 
 const PaymentDetails = props => {
-    const stripe = useStripe();
-    const elements = useElements();
-    const dispatch = useDispatch();
+
     const { total } = useSelector(mapState);
     const [recipientName, setRecipientName] = useState('');
     const [nameOnCard, setNameOnCard] = useState('');
@@ -264,9 +259,9 @@ const PaymentDetails = props => {
                     variant='h5'
                     color='inherit'>Card Details</Typography>
 
-                    <CardElement  
+                    {/* <CardElement  
                     options={configCardElement}
-                    />
+                    /> */}
                 </Box>
                 <Button
                 variant='contained'

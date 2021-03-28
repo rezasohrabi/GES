@@ -1,26 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import { Link, Typography } from '@material-ui/core';
+import { Link, Typography, makeStyles, Card } from '@material-ui/core';
 
-const StyledCard = styled.div`
-    padding: 16px;
-    margin: 16px;
-    width: 100%;
-`;
-
-const StyledLink = styled(Link)`
-  *:not(:last-child) {
-    margin-bottom: 8px;
-  } 
-`;
-
-const StyledImage = styled.img`
-    height: 350px;
-    width: 100%;
-`;
+const useStyles = makeStyles((theme) => ({
+  card: {
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    width: '100%',
+    boxShadow: 'none',
+  },
+  link: {
+    '*:not(:last-child)': {
+      marginBottom: theme.spacing(1),
+    },
+  },
+  image: {
+    height: '350px',
+    width: '100%',
+  },
+}));
 
 export default function Item(product) {
+  const classes = useStyles();
     const {
         productId,
         productThumbnail,
@@ -30,12 +31,12 @@ export default function Item(product) {
         productMenu
       } = product;
     return (
-        <StyledCard>
-          <StyledLink component={RouterLink} to={`/products/${productMenu}/${productCategory}/${productId}`} color='inherit'>
-            <StyledImage src={productThumbnail[0]} alt={productName}/>
+        <Card className={classes.card}>
+          <Link className={classes.link} component={RouterLink} to={`/products/${productMenu}/${productCategory}/${productId}`} color='inherit'>
+            <img className={classes.image} src={productThumbnail[0]} alt={productName}/>
             <Typography variant='body2'  noWrap>{productName}</Typography>
             <Typography variant='h6' color='primary'>${productPrice}</Typography>
-          </StyledLink>
-        </StyledCard>
+          </Link>
+        </Card>
     );
 };

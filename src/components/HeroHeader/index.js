@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Grid, Button, makeStyles } from '@material-ui/core';
-import ManImage from './../../assets/man.jpg';
-import WomanImage from './../../assets/woman.jpeg';
 import MultiCarousel from '../MultiCarousel';
 import { fetchProductsStart } from './../../redux/Products/products.actions'
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,16 +9,6 @@ import CategoryCard from '../CategoryCard';
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(4),
-    },
-    manImage: {
-        backgroundImage: `URL(${ManImage})`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-    },
-    womanImage: {
-        backgroundImage: `URL(${WomanImage})`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
     },
     catWrapper: {
         marginTop: theme.spacing(4),

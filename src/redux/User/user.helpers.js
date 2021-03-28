@@ -12,7 +12,7 @@ export const handleResetPasswordApi = email => {
         })
         .catch(() => {
             const err = ['Email not found, please try again.'];
-            reject();
+            reject(err);
         })
     });
 }
